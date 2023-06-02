@@ -1,19 +1,32 @@
+import glob
+import json
 from dataclasses import dataclass, field
-import re, json, glob, os, random
 from typing import List
 from xml.sax.saxutils import escape
 
+from utils import Leveler
 
 
-@dataclass
-class TropeElement(Division):
-    pass
+@dataclass()
+class Accidental:
+    uuid: str
+    base: str
+    liquescent: str
+    noteType: str
+    octave: int
+    focus: bool
 
+    @property
+    def mei(self):
+        if self.noteType == "Flat":
+            accid = "f"
+        elif self.noteType == "Natural":
+            accid = "n"
+        else:
+            accid = "?"
 
+        return f'<accid ploc="{self.base}" poct="{self.oct}" accid="{accid}"'
 
-@dataclass
-class PrimeChantElement(Division):
-    pass
 
 @dataclass
 class NeumeComponent:
@@ -45,27 +58,6 @@ class NeumeComponent:
     @property
     def json(self):
         return {"type": "note", "pitch": f"{self.base}{self.octave}"}
-
-
-@dataclass()
-class Accidental:
-    uuid: str
-    base: str
-    liquescent: str
-    noteType: str
-    octave: int
-    focus: bool
-
-    @property
-    def mei(self):
-        if self.noteType == "Flat":
-            accid = "f"
-        elif self.noteType == "Natural":
-            accid = "n"
-        else:
-            accid = "?"
-
-        return f'<accid ploc="{self.base}" poct="{self.oct}" accid="{accid}"'
 
 
 class Neume:
@@ -136,26 +128,6 @@ class Syllable:
     def json(self):
         return {"type": "syllable", "lyric": self.text, "elements": [neume.json for neume in self.neumes]}
 
-class Leveler:
-    def __init__(self, documentType):
-        docTypeToLevel = {"Level1": 1, "Level2": 2, "Level3": 3}
-        self.levels = docTypeToLevel[documentType]
-        self.current_level = 0
-
-    def next_level(self):
-        if self.levels < self.current_level:
-            self.current_level += 1
-            return True
-        else:
-            return False
-
-    @property
-    def interdivision(self):
-        if self.levels > self.current_level:
-            return True
-        else:
-            return False
-
 
 @dataclass
 class Division:
@@ -199,7 +171,7 @@ class Division:
         return [child for child in children if child["kind"] != "ParatextContainer"]
 
     def get_syllables(self):
-        return [Syllable(**d) for child in self.filter_paratexts(self.children)
+        return [Syllable(**d) for child in self.filter_paratexts(self.children)  # ! How to model paratexts?
                 for d in child["children"]
                 ]
 
@@ -294,14 +266,6 @@ class Document:
         return self.data.json
 
 
-class Lied:
-    pass
-
-
-class Paratext:
-    pass
-
-
 @dataclass
 class Meta:
     id: str
@@ -319,7 +283,6 @@ class Meta:
     kommentar: str
     editionsstatus: str
     additionalData: dict
-
 
 
 @dataclass
@@ -359,72 +322,6 @@ class Data:
         return {"type": "chant", "elements": [division.json for division in self.elements]}
 
 
-class ProperTropeComplex(Document):
-    """
-    A class representing a trope complex.
-
-    A `TropeComplex` is created by loading a `Document` object into it.
-    If the `Document` object's `type` attribute is "Tropus",
-    its metadata and data are used to create a `TropeComplex` object.
-    Otherwise, an exception is raised.
-    """
-
-    def __init__(self, entry):
-        super().__init__(entry)
-        self.nums = self.get_nums()
-        self.letters = self.get_letters()
-        self.ct_volume = self.get_ct_volume()
-        self.ct_base_chant = self.get_ct_base_chant()
-
-    def get_ct_base_chant(self):
-        base_chant_match = re.search(r'^.*?(?=\s(?:\d|A))', self.meta.bibliographischerverweis)
-        return base_chant_match.group(0) if base_chant_match else None
-
-    def get_ct_volume(self):
-        volume_match = re.search(r'\(CT\s(\w+)\)$', self.meta.bibliographischerverweis)
-        return volume_match.group(1) if volume_match else None
-
-    def get_nums(self) -> list:
-        return [int(number) for number in re.findall(r"\d+", self.meta.bibliographischerverweis)]
-
-    def get_letters(self) -> list:
-        return [letter for letter in self.meta.bibliographischerverweis.split() if
-                len(letter) == 1 and letter.isupper()]
-
-    def get_trope_elements(self):
-        return [division for division in self.data.elements if division.status == "Tropenelement"]
-
-    def get_primechant_elements(self):
-        return [division for division in self.data.elements if
-                division.status == "Einsatzmarke"]  # Does not distinguish between complete and abbreviated (Einsatzmarke) prime chant elements
 
 
-class Corpus:
-    def __init__(self, directory, sample=False):
-        self.directory = directory
-        self.documents = self.load_corpus(sample)
-
-    def load_corpus(self, sample):
-        if not sample:
-            return [self.create_document(entry) for source in glob.glob(self.directory)
-                    for entry in
-                    [directory for directory in glob.glob(os.path.join(source, "*")) if os.path.isdir(directory)]]
-        else:
-            entries = [entry for source in glob.glob(self.directory)
-                       for entry in
-                       [directory for directory in glob.glob(os.path.join(source, "*")) if os.path.isdir(directory)]]
-            return [self.create_document(entry) for entry in random.sample(entries, sample)]
-
-    @staticmethod
-    def create_document(entry):
-        """
-        Creates a new instance of a document. At first checks for a specific type and assigns a genre-specific subclass
-        (for example TropeComplex()). If no suitable subclass is found, it returns a generic Document() instance.
-        """
-        meta = Document.get_meta(entry)
-        if meta.gattung1 == "Tropus":
-            return ProperTropeComplex(entry)
-        # ... other genres
-        else:
-            return Document(entry)
 
