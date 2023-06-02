@@ -1,0 +1,7 @@
+setup.py
+app/monodi_kit.egg-info/PKG-INFO
+app/monodi_kit.egg-info/SOURCES.txt
+app/monodi_kit.egg-info/dependency_links.txt
+app/monodi_kit.egg-info/top_level.txt
+app/monodikit/__init__.py
+app/monodikit/model.py

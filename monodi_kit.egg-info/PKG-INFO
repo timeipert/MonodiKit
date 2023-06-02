@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: monodi-kit
+Version: 0.0.1
+Home-page: https://github.com/timeipert/MonodiKit
+Author: Tim Eipert & Fabian C. Moss
+Author-email: tim.eipert@uni-wuerzburg.de
+Classifier: 
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
