@@ -1,8 +1,8 @@
 from dataclasses import dataclass
-from document import Document, Division
+from .document import Chant, Division
 import re
 
-class Lied:
+class Song:
     pass
 
 class Sequence:
@@ -14,14 +14,40 @@ class OrdinaryChant:
 class LiturgicalPlay:
     pass
 
-class ProperTropeComplex(Document):
+class ProperTropeComplex(Chant):
     """
     A class representing a trope complex.
 
-    A `TropeComplex` is created by loading a `Document` object into it.
-    If the `Document` object's `type` attribute is "Tropus",
-    its metadata and data are used to create a `TropeComplex` object.
-    Otherwise, an exception is raised.
+    Parameters
+    ----------
+    entry : str
+        The entry to initialize the `ProperTropeComplex` object.
+
+    Attributes
+    ----------
+    nums : list
+        List of signatures of trope elements
+    letters : list
+        List of signatures of prima chant elements
+    ct_volume : str or None
+        The Corpus Troporum Volume
+    ct_base_chant : str or None
+        ...
+
+    Methods
+    -------
+    get_ct_base_chant()
+        Extracts the base chant from the `meta.bibliographischerverweis` attribute using regular expressions.
+    get_ct_volume()
+        Extracts the volume from the `meta.bibliographischerverweis` attribute using regular expressions.
+    get_nums() -> list
+        Extracts numbers from the `meta.bibliographischerverweis` attribute and returns them as a list of integers.
+    get_letters() -> list
+        Extracts uppercase letters from the `meta.bibliographischerverweis` attribute and returns them as a list of strings.
+    get_trope_elements() -> list
+        Returns a list of divisions from the `data.elements` attribute of the `Document` whose status is "Tropenelement".
+    get_primechant_elements() -> list
+        Returns a list of divisions from the `data.elements` attribute of the `Document` whose status is "Einsatzmarke" (prime chant elements).
     """
 
     def __init__(self, entry):
@@ -55,8 +81,14 @@ class ProperTropeComplex(Document):
 
 @dataclass
 class TropeElement(Division):
+    """
+    A dataclass representing a trope element, inheriting from the `Division` class.
+    """
     pass
 
 @dataclass
 class PrimeChantElement(Division):
+    """
+    A dataclass representing a prime chant element, inheriting from the `Division` class.
+    """
     pass

@@ -3,8 +3,9 @@ import json
 from dataclasses import dataclass, field
 from typing import List
 from xml.sax.saxutils import escape
+import functools
 
-from utils import Leveler
+
 
 
 @dataclass()
@@ -32,11 +33,30 @@ class Accidental:
 class NeumeComponent:
     uuid: str
     base: str
-    liquescent: str
+    liquescent: bool
     noteType: str
     octave: int
     focus: bool
-    index: int
+    ncIndex: int
+    note_to_num = {'C': 1, 'D': 2, 'E': 3, 'F': 4, 'G': 5, 'A': 6, 'B': 7}
+
+    def calculate_number(self):
+        return (self.octave * 7) + (self.note_to_num[self.base])
+
+    def __lt__(self, other):
+        return self.calculate_number() < other.calculate_number()
+
+    def __gt__(self, other):
+        return self.calculate_number() > other.calculate_number()
+
+    def __le__(self, other):
+        return self.calculate_number() <= other.calculate_number()
+
+    def __ge__(self, other):
+        return self.calculate_number() >= other.calculate_number()
+
+    def __eq__(self, other):
+        return self.calculate_number() == other.calculate_number() and self.liquescent == other.liquescent
 
     @property
     def pitch(self):
@@ -44,10 +64,11 @@ class NeumeComponent:
 
     @property
     def mei(self):
-        if self.index == 0:
+        if self.ncIndex == 0:
             con = ""
         else:
             con = ' con="g"'
+
         if self.liquescent:
             return f'<nc pname="{self.base.lower()}" oct="{self.octave}"{con}><liquescent/></nc>'
         elif self.noteType != "Normal":
@@ -58,6 +79,24 @@ class NeumeComponent:
     @property
     def json(self):
         return {"type": "note", "pitch": f"{self.base}{self.octave}"}
+
+    def __str__(self):
+        return f"<NeumeComponent base={self.base}, oct={self.octave}>"
+
+    def __repr__(self):
+        return f"<NeumeComponent base={self.base}, oct={self.octave}>"
+
+
+
+@dataclass
+class EmptyNeumeComponent(NeumeComponent):
+    @property
+    def pitch(self):
+        return "Empty"
+
+    @property
+    def mei(self):
+        return ""
 
 
 class Neume:
@@ -73,7 +112,13 @@ class Neume:
     def parse_neume_content(self, element, index):
         try:
             if element["noteType"] == "Normal":
-                return NeumeComponent(**element, index=index)
+                neume = NeumeComponent(**element, ncIndex=index)
+                low_peak = NeumeComponent(uuid="", base="G", liquescent=False,noteType="Normal", octave=3, focus=False, ncIndex=0)
+                comment_note = NeumeComponent(uuid="", base="A", liquescent=True, noteType="Normal", octave=5, focus=False, ncIndex=0)
+                if neume < low_peak or neume == comment_note:
+                    return EmptyNeumeComponent(**element, ncIndex=index)
+                else:
+                    return neume
             elif element["noteType"] == "Flat" or element.noteType == "Natural":
                 return Accidental(**element)
         except AttributeError:
@@ -128,6 +173,9 @@ class Syllable:
     def json(self):
         return {"type": "syllable", "lyric": self.text, "elements": [neume.json for neume in self.neumes]}
 
+@dataclass
+class EditorialLine:
+    pass
 
 @dataclass
 class Division:
@@ -136,19 +184,23 @@ class Division:
     """
     data: list  #: A list of data elements for the division.
     children: list  #: A list of child elements for the division.
-    level: Leveler #: Does it contain content or another division?
 
     # syllables : list = field(init=False)
 
     def __post_init__(self):
-        if self.level.interdivision:
-            self.level.next_level()
-            self.elements = [Division(d["data"], d["children"], self.level) for d in self.children]
-            self.signatures: List[str] = [e.signature for e in self.elements]
+        children_wo_paratext = self.filter_paratexts(self.children)
+        if "ZeileContainer" not in [values for child in children_wo_paratext for values in child.values()]:
+            self.interdivision = True
+            self.elements = [Division(d["data"], d["children"]) for d in children_wo_paratext]
+            self.syllables: list = self.get_flat_syllables()
         else:
-            self.signature: str = self.get_signature()  #: The signature of the division, if present.
-            self.status: str = self.get_status()  #: The status of the division, if present.
+            self.interdivision = False
             self.syllables: list = self.get_syllables()  #: A list of `Syllable` objects representing the syllables in the division.
+
+            #print("syllables", self.syllables)
+
+        self.signature: str = self.get_signature()  #: The signature of the division, if present.
+        self.status: str = self.get_status()  #: The status of the division, if present.
 
     def get_signature(self):
         division_metadata = {d["name"]: d["data"] for d in self.data}
@@ -164,23 +216,33 @@ class Division:
         else:
             return None
 
-    def get_number_of_levels(self):
-        pass
-
     def filter_paratexts(self, children):
         return [child for child in children if child["kind"] != "ParatextContainer"]
+
 
     def get_syllables(self):
         return [Syllable(**d) for child in self.filter_paratexts(self.children)  # ! How to model paratexts?
                 for d in child["children"]
                 ]
 
-    def get_flat_neumes(self):
+    def get_flat_syllables(self):
+        if len(self.elements):
+            if self.elements[0].interdivision:
+                return [syllable for division in self.elements for syllable in division.get_flat_syllables()]
+            else:
+                return [syllable for division in self.elements for syllable in division.syllables]
+        else:
+            return []
+
+
+    @property
+    def flat_neumes(self):
         return [neume
                 for syllable in self.syllables
                 for neume in syllable.neumes]
 
-    def get_flat_neume_components(self):
+    @property
+    def flat_neume_components(self):
         return [note_component
                 for syllable in self.syllables
                 for neume in syllable.neumes
@@ -202,7 +264,8 @@ class Division:
     #     return [ Syllable(c) for child in self.children for d in child["children"] for c in d["children"] ]
 
 
-class Document:
+
+class Chant:
     """
     A class representing a document or unit of medieval chant.
 
@@ -213,17 +276,22 @@ class Document:
 
     def __init__(self, entry_path):
         self.meta = self.get_meta(entry_path)
-        self.data = self.get_data(entry_path)
+        data = self.get_data(entry_path)
+        if data:
+            self.data = data
+        else:
+            raise Exception("Could not load data", self.meta.id)
         self.type = self.meta.gattung1  #: The type of the document, taken from the gattung1 attribute of its metadata.
 
     @staticmethod
     def get_meta(entry_path):
         if glob.glob(entry_path + "/meta.json"):
             with open(entry_path + "/meta.json") as f:
-                meta = Meta(**json.load(f))
+                metadata = json.load(f)
+                meta = Meta(**metadata)
             return meta
         else:
-            return None
+            return
 
     @staticmethod
     def get_data(entry):
@@ -234,32 +302,50 @@ class Document:
         else:
             return None
 
-    def get_flat_syllables(self):
+    @property
+    def flat_syllables(self):
         return [syllable
                 for division in self.data.elements
                 for syllable in division.syllables]
 
-    def get_flat_neumes(self):
+    @property
+    def flat_neumes(self):
         return [neume
                 for division in self.data.elements
-                for neume in division.get_flat_neumes()]
+                for neume in division.flat_neumes]
+    @property
+    def flat_neume_components(self):
+        try:
+            return [neume_component
+                    for division in self.data.elements
+                    for neume_component in division.flat_neume_components]
+        except:
+            print("Data.Elements is None at: ", self.meta.dokumenten_id)
+            return []
 
-    def get_flat_neume_components(self):
-        return [note_component
-                for division in self.data.elements
-                for note_component in division.get_flat_neume_components()]
+    @property
+    def flat_neume_components_by_division(self):
+        return [[neume_component
+                for neume_component in division.flat_neume_components]
+                for division in self.data.elements]
+
+
 
     @property
     def mei(self):
-        return f'<?xml version="1.0" encoding="UTF-8"?>' \
-               '<?xml-model href="https://music-encoding.org/schema/dev/mei-Neumes.rng" ' \
-               'type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>' \
-               '<?xml-model href="https://music-encoding.org/schema/dev/mei-Neumes.rng" ' \
-               'type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>' \
-               '<mei xmlns="http://www.music-encoding.org/ns/mei"><meiHead><fileDesc><titleStmt>' \
-               '<title></title></titleStmt><pubStmt></pubStmt></fileDesc></meiHead>' \
-               f'{self.data.mei}' \
-               '</mei>'
+        try:
+            return f'<?xml version="1.0" encoding="UTF-8"?>' \
+                   '<?xml-model href="https://music-encoding.org/schema/dev/mei-Neumes.rng" ' \
+                   'type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>' \
+                   '<?xml-model href="https://music-encoding.org/schema/dev/mei-Neumes.rng" ' \
+                   'type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>' \
+                   '<mei xmlns="http://www.music-encoding.org/ns/mei"><meiHead><fileDesc><titleStmt>' \
+                   '<title></title></titleStmt><pubStmt></pubStmt></fileDesc></meiHead>' \
+                   f'{self.data.mei}' \
+                   '</mei>'
+        except:
+            print("Could not get MEI for: ", self.meta.dokumenten_id)
+            return ""
 
     @property
     def json(self):
@@ -285,6 +371,7 @@ class Meta:
     additionalData: dict
 
 
+
 @dataclass
 class Data:
     """
@@ -302,8 +389,13 @@ class Data:
 
 
     def __post_init__(self):
-        self.elements = [Division(d["data"], d["children"], Leveler(self.documentType)) for d in self.children]
-        self.signatures: List[str] = [e.signature for e in self.elements]
+        try:
+            self.elements = [Division(d["data"], d["children"]) for d in self.children]
+            self.signatures: List[str] = [e.signature for e in self.elements]
+        except:
+            print("Element parsing did not work with doc: ", self.uuid)
+            self.elements = []
+            self.signatures = []
 
     @property
     def mei(self):
