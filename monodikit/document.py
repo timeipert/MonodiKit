@@ -281,7 +281,7 @@ class Chant:
             self.data = data
         else:
             raise Exception("Could not load data", self.meta.id)
-        self.type = self.meta.gattung1  #: The type of the document, taken from the gattung1 attribute of its metadata.
+        self.type = self.meta.genre  #: The type of the document, taken from the gattung1 attribute of its metadata.
 
     @staticmethod
     def get_meta(entry_path):
@@ -352,23 +352,40 @@ class Chant:
         return self.data.json
 
 
-@dataclass
+
 class Meta:
-    id: str
-    quelle_id: str
-    dokumenten_id: str
-    gattung1: str
-    gattung2: str
-    festtag: str
-    feier: str
-    textinitium: str
-    bibliographischerverweis: str
-    druckausgabe: str
-    zeilenstart: int
-    foliostart: str
-    kommentar: str
-    editionsstatus: str
-    additionalData: dict
+
+    def __init__(self, id, quelle_id, dokumenten_id, gattung1, gattung2, festtag, feier, textinitium,
+               bibliographischerverweis, druckausgabe, zeilenstart, foliostart, kommentar, editionsstatus,
+               additionalData):
+        self.uuid = id,
+        self.source_id = quelle_id
+        self.document_id = dokumenten_id
+        self.genre = gattung1
+        self.subgenre = gattung2
+        self.feast_day = festtag
+        self.feast_time = feier
+        self.initial_text = textinitium
+
+        self.initial_folio = foliostart
+        self.initial_line = zeilenstart
+        self.ending_folio = additionalData.get("Endseite", "")
+        self.ending_line = additionalData.get("Endzeile", "")
+
+        self.bibliographical_reference = bibliographischerverweis
+        self.cm_volume = druckausgabe
+
+        self.editorial_comment = kommentar
+        self.melody_number = additionalData.get("Melodiennummer_Katalog", "")
+        self.melodyname_standardized = additionalData.get("Melodie_Standard", "")
+        self.melodyname_diplomatic = additionalData.get("Melodie_Quelle", "")
+        self.editor = additionalData.get("Editor", "")
+        self.related_chant = additionalData.get("Bezugsgesang", "")
+        self.liturgical_play_id = additionalData.get("Referenz_auf_Spiel", "")
+        self.completeness = additionalData.get("Zusatz_zu_Textinitium", "")
+        self.layer_of_addendum = additionalData.get("Nachtragsschicht", "")
+        self.condition_of_transmission = additionalData.get("\u00dcberlieferungszustand", "")
+        self.iiif_urls = additionalData.get("iiif", "")
 
 
 

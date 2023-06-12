@@ -3,6 +3,7 @@ import random
 import os
 
 from .document import Chant
+from .source import create_source, Source
 from .genre_specific import ProperTropeComplex
 
 
@@ -41,49 +42,63 @@ class Corpus:
     subcorpus2 = Corpus("../data/*", filter_options=lambda chant: chant.gattung1 == "Tropus" or chant.gattung1 == "Sequenz")
     ```
     """
-    def __init__(self, directory, sample=0, filter_options=None):
-        if filter_options is None:
-            filter_options = {}
+
+    def __init__(self, directory, sample=0, filters=None):
+        if filters is None:
+            filters = {}
         self.directory = directory
-        self.filter = filter_options
-        self.documents = self.load_corpus(sample)
+        self.filters = filters
+        self.documents = []
+        self.sample = False
+        sources = [create_source(source) for source in glob.glob(self.directory)]
+        self.sources = {source.quellensigle: source for source in sources}
+        self.load_corpus(sample)
+
 
     def load_corpus(self, sample):
         if not sample:
-            return list(filter(None, [create_document(entry, filter_options=self.filter) for source in glob.glob(self.directory)
-                                for entry in
-                                [directory for directory in glob.glob(os.path.join(source, "*")) if
-                                 os.path.isdir(directory)]
-                                if check_files_exist(entry)]))  # ! Error when there are missing files?
+            self.sample = False
+            self.documents = list(filter(None, [create_document(entry,
+                                                                filters=self.filters,
+                                                                sources=self.sources)
+                                                for source in glob.glob(self.directory)
+                                                for entry in
+                                                [directory for directory in
+                                                 glob.glob(os.path.join(source, "*")) if
+                                                 os.path.isdir(directory)]
+                                                if check_files_exist(entry)]))  # ! Error when there are missing files?
         else:
+            self.sample = True
             entries = [entry for source in glob.glob(self.directory)
                        for entry in
-                       [directory for directory in glob.glob(os.path.join(source, "*")) if os.path.isdir(directory)]
-                       ]
-            return list(filter(None, [create_document(entry, filter_options=self.filter)
+                       [directory for directory in glob.glob(os.path.join(source, "*"))
+                        if os.path.isdir(directory)]]
+            return list(filter(None, [create_document(entry, filters=self.filters)
                                       for entry in random.sample(entries, sample)
                                       if check_files_exist(entry)]))
 
     # TODO It should be possible to filter the collection of documents and create multiple "sub corpora"
 
 
-def create_document(entry, filter_options={}):
+def create_document(entry, filters, sources = None):
     """
     Creates a new instance of a document. At first checks for a specific type and assigns a genre-specific subclass
     (for example TropeComplex()). If no suitable subclass is found, it returns a generic Document() instance.
     """
-    meta = Chant.get_meta(entry)
+    document_meta = Chant.get_meta(entry)
+    source_meta = sources.get(document_meta.source_id, None)
 
-    if callable(filter_options):
-        if not filter_options(meta):
+
+    if callable(filters):
+        if not filters(document_meta, source_meta):
             return None
     else:
         # Now checks only for substring
-        for key, value in filter_options.items():
-            if value not in meta.__getattribute__(key):
+        for key, value in filters.items():
+            if value not in document_meta.__getattribute__(key):
                 return None
 
-    if meta.gattung1 == "Tropus":
+    if document_meta.genre == "Tropus":
         return ProperTropeComplex(entry)
     # ... other genres
     else:
