@@ -2,16 +2,16 @@ from dataclasses import dataclass
 from .document import Chant, Division
 import re
 
-class Song:
+class Song(Chant):
     pass
 
-class Sequence:
+class Sequence(Chant):
     pass
 
-class OrdinaryChant:
+class OrdinaryChant(Chant):
     pass
 
-class LiturgicalPlay:
+class PlayPassage(Chant):
     pass
 
 class ProperTropeComplex(Chant):
@@ -58,18 +58,18 @@ class ProperTropeComplex(Chant):
         self.ct_base_chant = self.get_ct_base_chant()
 
     def get_ct_base_chant(self):
-        base_chant_match = re.search(r'^.*?(?=\s(?:\d|A))', self.meta.bibliographischerverweis)
+        base_chant_match = re.search(r'^.*?(?=\s(?:\d|A))', self.meta.bibliographical_reference)
         return base_chant_match.group(0) if base_chant_match else None
 
     def get_ct_volume(self):
-        volume_match = re.search(r'\(CT\s(\w+)\)$', self.meta.bibliographischerverweis)
+        volume_match = re.search(r'\(CT\s(\w+)\)$', self.meta.bibliographical_reference)
         return volume_match.group(1) if volume_match else None
 
     def get_nums(self) -> list:
-        return [int(number) for number in re.findall(r"\d+", self.meta.bibliographischerverweis)]
+        return [int(number) for number in re.findall(r"\d+", self.meta.bibliographical_reference)]
 
     def get_letters(self) -> list:
-        return [letter for letter in self.meta.bibliographischerverweis.split() if
+        return [letter for letter in self.meta.bibliographical_reference.split() if
                 len(letter) == 1 and letter.isupper()]
 
     def get_trope_elements(self):

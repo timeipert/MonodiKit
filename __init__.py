@@ -13,6 +13,6 @@ from .monodikit.genre_specific import (
     ProperTropeComplex,
     Song,
     Sequence,
-    LiturgicalPlay,
+    PlayPassage,
     OrdinaryChant
 )
