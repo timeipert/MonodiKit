@@ -1,4 +1,4 @@
-# Monodkit
+# Monodikit
 
 A Python library for the analysis and processing of medieval chant documents. 
 
