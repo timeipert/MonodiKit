@@ -1,17 +1,17 @@
 import pickle, os
 import sys
-sys.path.append("..")
+sys.path.append('..')
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import app as monodikit
 import numpy as np
 from matplotlib.colors import LogNorm
 
+import monodikit
 
 class IntervalBigramHeatmap:
     def __init__(self):
-        self.corpus_directory = "../data/*"
+        self.corpus_directory = "../../data/*"
         self.corpus_pickle_path = "corpus.pkl"
         self.corpus = self.load_corpus()
         self.neumes_per_chant = []
