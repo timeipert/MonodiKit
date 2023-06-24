@@ -117,7 +117,8 @@ class Neume:
                 comment_note = NeumeComponent(uuid="", base="A", liquescent=True, noteType="Normal", octave=5,
                                               focus=False, index=self.index + (0,))
                 if neume < low_peak or neume == comment_note:
-                    return EmptyNeumeComponent(**element, index=self.index + (index,))
+                    #return EmptyNeumeComponent(**element, index=self.index + (index,))
+                    return None
                 else:
                     return neume
             elif element["noteType"] == "Flat" or element.noteType == "Natural":
@@ -126,9 +127,9 @@ class Neume:
             return None
 
     def get_neume_content(self, spaced_element):
-        return [self.parse_neume_content(connected_neume_component, (index1 + index2))
+        return [neume for neume in [self.parse_neume_content(connected_neume_component, (index1 + index2))
                 for index2, neume_component in enumerate(spaced_element["nonSpaced"])
-                for index1, connected_neume_component in enumerate(neume_component["grouped"])]
+                for index1, connected_neume_component in enumerate(neume_component["grouped"])] if neume is not None]
 
     @property
     def mei(self):
@@ -159,7 +160,10 @@ class Syllable:
 
     # processed Notes instance
     def __post_init__(self):
-        self.neumes = self.get_neumes(self.notes)
+        if self.syllableType == "Normal":
+            self.neumes = self.get_neumes(self.notes)
+        else:
+            self.neumes = []
 
     def get_neumes(self, notes):
         if "spaced" not in notes:
