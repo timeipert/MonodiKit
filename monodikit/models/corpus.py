@@ -77,13 +77,15 @@ class Corpus:
                                       for entry in random.sample(entries, sample)
                                       if check_files_exist(entry)]))
 
-    # TODO It should be possible to filter the collection of documents and create multiple "sub corpora"
+
 
 
 def create_document(entry, filters, sources = None):
     """
-    Creates a new instance of a document. At first checks for a specific type and assigns a genre-specific subclass
-    (for example TropeComplex()). If no suitable subclass is found, it returns a generic Document() instance.
+    Creates a new instance of a document.
+    At first checks for a specific type and assigns a genre-specific subclass
+    (for example TropeComplex()).
+     If no suitable subclass is found, it returns a generic Document() instance.
     """
     document_meta = Chant.get_meta(entry)
     source_meta = sources.get(document_meta.source_id, None)

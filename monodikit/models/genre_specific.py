@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from .document import Chant, Division
+from .corpus import Corpus
 import re
 
 class Song(Chant):
@@ -13,6 +14,15 @@ class OrdinaryChant(Chant):
 
 class PlayPassage(Chant):
     pass
+
+class Play(Corpus):
+    def __init__(self, directory, liturgical_play_id, sample=None, filters=None):
+        def cummulative_filter(document_meta, source_meta):
+            if document_meta["liturgical_play_id"] != liturgical_play_id:
+                return False
+            if filters:
+                return filters(document_meta, source_meta)
+        super().__init__(directory, sample=sample, filters=cummulative_filter)
 
 class ProperTropeComplex(Chant):
     """

@@ -117,7 +117,7 @@ class Neume:
                 comment_note = NeumeComponent(uuid="", base="A", liquescent=True, noteType="Normal", octave=5,
                                               focus=False, index=self.index + (0,))
                 if neume < low_peak or neume == comment_note:
-                    #return EmptyNeumeComponent(**element, index=self.index + (index,))
+                    # return EmptyNeumeComponent(**element, index=self.index + (index,))
                     return None
                 else:
                     return neume
@@ -128,8 +128,9 @@ class Neume:
 
     def get_neume_content(self, spaced_element):
         return [neume for neume in [self.parse_neume_content(connected_neume_component, (index1 + index2))
-                for index2, neume_component in enumerate(spaced_element["nonSpaced"])
-                for index1, connected_neume_component in enumerate(neume_component["grouped"])] if neume is not None]
+                                    for index2, neume_component in enumerate(spaced_element["nonSpaced"])
+                                    for index1, connected_neume_component in enumerate(neume_component["grouped"])] if
+                neume is not None]
 
     @property
     def mei(self):
@@ -186,7 +187,6 @@ class EditorialLine:
     kind: str
     children: list
     index: tuple
-
 
     def __post_init__(self):
         self.syllables = self.get_syllables()
@@ -252,11 +252,11 @@ class Division:
                 print("False Argument, ", child)
         return editorial_lines
 
-
     def get_flat_editorial_lines(self):
         if len(self.elements):
             if self.elements[0].interdivision:
-                return [editorial_line for division in self.elements for editorial_line in division.get_flat_editorial_lines()]
+                return [editorial_line for division in self.elements for editorial_line in
+                        division.get_flat_editorial_lines()]
             else:
                 return [editorial_line for division in self.elements for editorial_line in division.editorial_lines]
         else:
@@ -419,6 +419,39 @@ class Meta:
         self.layer_of_addendum = additionalData.get("Nachtragsschicht", "")
         self.condition_of_transmission = additionalData.get("\u00dcberlieferungszustand", "")
         self.iiif_urls = additionalData.get("iiifs", "")
+
+    @property
+    def as_record(self):
+        return {
+            "uuid": self.uuid,
+            "source_id": self.source_id,
+            "document_id": self.document_id,
+            "genre": self.genre,
+            "subgenre": self.subgenre,
+            "feast_day": self.feast_day,
+            "feast_time": self.feast_time,
+            "initial_text": self.initial_text,
+
+            "initial_folio": self.initial_folio,
+            "initial_line": self.initial_line,
+            "ending_folio": self.ending_folio,
+            "ending_line": self.ending_line,
+
+            "bibliographical_reference": self.bibliographical_reference,
+            "cm_volume": self.cm_volume,
+
+            "editorial_comment": self.editorial_comment,
+            "melody_number": self.melody_number,
+            "melodyname_standardized": self.melodyname_standardized,
+            "melodyname_diplomatic": self.melodyname_diplomatic,
+            "editor": self.editor,
+            "related_chant": self.related_chant,
+            "liturgical_play_id": self.liturgical_play_id,
+            "completeness": self.completeness,
+            "layer_of_addendum": self.layer_of_addendum,
+            "condition_of_transmission": self.condition_of_transmission,
+            "iiif_urls": self.iiif_urls
+        }
 
 
 @dataclass

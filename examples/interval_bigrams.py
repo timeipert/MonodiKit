@@ -1,5 +1,6 @@
 import pickle, os
 import sys
+
 sys.path.append('..')
 import pandas as pd
 import seaborn as sns
@@ -8,6 +9,7 @@ import numpy as np
 from matplotlib.colors import LogNorm
 
 import monodikit
+
 
 class IntervalBigramHeatmap:
     def __init__(self):
@@ -99,9 +101,9 @@ class IntervalBigramHeatmap:
 
     def compute(self):
         intervals_complete = [self.create_intervals(document.flat_neume_components) for document in
-                               self.corpus.documents]
+                              self.corpus.documents]
         intervals_chunks = [self.divide_list(self.create_intervals(document.flat_neume_components), 10) for document in
-                               self.corpus.documents]
+                            self.corpus.documents]
         beginnings = []
         middles = []
         endings = []
@@ -109,7 +111,7 @@ class IntervalBigramHeatmap:
             chunks = []
             for chunk in chant:
                 interval_df = self.create_interval_dataframe(chunk)
-                heatmap_data = self.calculate_heatmap_data(interval_df, normalize = True)
+                heatmap_data = self.calculate_heatmap_data(interval_df, normalize=True)
                 chunks.append(heatmap_data)
             try:
                 beginnings.append(chunks[0])
@@ -125,7 +127,8 @@ class IntervalBigramHeatmap:
         for chant in intervals_complete:
             interval_df = self.create_interval_dataframe(chant)
             complete_matrices.append(self.calculate_heatmap_data(interval_df, normalize=True))
-        complete_matrix = self.reorder_heatmap(self.add_missing_intervals(self.calculate_mean_matrix(complete_matrices)))
+        complete_matrix = self.reorder_heatmap(
+            self.add_missing_intervals(self.calculate_mean_matrix(complete_matrices)))
         self.plot_composed_figure(complete_matrix, begin_matrix, middle_matrix, end_matrix, "Test")
 
     def plot_composed_figure(self, heatmap_all,
