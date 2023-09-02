@@ -77,8 +77,11 @@ class Corpus:
                                       for entry in random.sample(entries, sample)
                                       if check_files_exist(entry)]))
 
+    def document_metadata(self):
+        return [document.meta.as_record for document in self.documents]
 
-
+    def source_metadata(self):
+        return [source.meta.as_record for source in self.sources]
 
 def create_document(entry, filters, sources = None):
     """

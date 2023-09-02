@@ -14,5 +14,6 @@ from .models.genre_specific import (
     Song,
     Sequence,
     PlayPassage,
+    Play,
     OrdinaryChant
 )

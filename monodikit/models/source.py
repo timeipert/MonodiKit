@@ -1,24 +1,65 @@
-from dataclasses import dataclass
 import glob, json
 
-@dataclass
+
 class Source:
     id: str
-    quellensigle: str
-    herkunftsregion: str
-    herkunftsort: str
-    herkunftsinstitution: str
-    ordenstradition: str
-    quellentyp: str
-    bibliotheksort: str
-    bibliothek: str
-    bibliothekssignatur: str
-    kommentar: str
-    datierung: str
+    sigle: str
+    region_of_origin: str
+    location_of_origin: str
+    institution_of_origin: str
+    religious_order: str
+    type: str
+    location_of_library: str
+    library: str
+    signature: str
+    comment: str
+    dating: str
     status: str
-    jahrhundert: str
-    manifest: str
-    foliooffset: str
+    century: str
+    iiif_manifest_url: str
+    iiif_foliooffset: str
+
+    def __init__(self, id, quellensigle, herkunftsregion, herkunftsort, herkunftsinstitution, ordenstradition,
+                 quellentyp,
+                 bibliotheksort, bibliothek, bibliothekssignatur, kommentar, datierung, status, jahrhundert, manifest,
+                 foliooffset,
+                 ):
+        self.id = id
+        self.sigle = quellensigle
+        self.region_of_origin = herkunftsregion
+        self.location_of_origin = herkunftsort
+        self.institution_of_origin = herkunftsinstitution
+        self.religious_order = ordenstradition
+        self.type = quellentyp
+        self.location_of_library = bibliotheksort
+        self.library = bibliothek
+        self.signature = bibliothekssignatur
+        self.comment = kommentar
+        self.dating = datierung
+        self.status = status
+        self.century = jahrhundert
+        self.iiif_manifest_url = manifest
+        self.iiif_foliooffset = foliooffset
+
+    def as_record(self):
+        return {"id": self.id,
+                "sigle": self.sigle,
+                "region_of_origin": self.region_of_origin,
+                "location_of_origin": self.location_of_origin,
+                "institution_of_origin": self.institution_of_origin,
+                "religious_order": self.religious_order,
+                "type": self.type,
+                "location_of_library": self.location_of_library,
+                "library": self.library,
+                "signature": self.signature,
+                "comment": self.comment,
+                "dating": self.dating,
+                "status": self.status,
+                "century": self.century,
+                "iiif_manifest_url": self.iiif_manifest_url,
+                "iiif_foliooffset": self.iiif_foliooffset
+                }
+
 
 def create_source(path):
     if glob.glob(path + "/meta.json"):
