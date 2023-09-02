@@ -54,7 +54,7 @@ class Corpus:
         self.sources = {source.quellensigle: source for source in sources}
         self.load_corpus(sample)
 
-
+    # TODO: One should create subcorpora without the need to reload the whole corpus
     def load_corpus(self, sample):
         if not sample:
             self.sample = False
@@ -77,9 +77,11 @@ class Corpus:
                                       for entry in random.sample(entries, sample)
                                       if check_files_exist(entry)]))
 
+    @property
     def document_metadata(self):
         return [document.meta.as_record for document in self.documents]
 
+    @property
     def source_metadata(self):
         return [source.meta.as_record for source in self.sources]
 
