@@ -1,0 +1,12 @@
+setup.py
+app/monodikit/__init__.py
+app/monodikit.egg-info/PKG-INFO
+app/monodikit.egg-info/SOURCES.txt
+app/monodikit.egg-info/dependency_links.txt
+app/monodikit.egg-info/top_level.txt
+app/monodikit/models/__init__.py
+app/monodikit/models/corpus.py
+app/monodikit/models/document.py
+app/monodikit/models/genre_specific.py
+app/monodikit/models/source.py
+app/monodikit/models/utility.py

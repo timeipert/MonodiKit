@@ -249,7 +249,7 @@ class Division:
             try:
                 editorial_lines.append(EditorialLine(**child, index=self.index + (index,)))
             except:
-                print("False Argument, ", child)
+                print("Warning: Expected editorial line but got: ", child)
         return editorial_lines
 
     def get_flat_editorial_lines(self):
@@ -356,7 +356,8 @@ class Chant:
                     for division in self.data.elements
                     for neume_component in division.flat_neume_components]
         except:
-            print("Data.Elements is None at: ", self.meta.dokumenten_id)
+            print("Warning for Chant property flat_neume_components: "
+                  "data.elements is None at: ", self.meta.dokumenten_id)
             return []
 
     @property
@@ -378,7 +379,7 @@ class Chant:
                    f'{self.data.mei}' \
                    '</mei>'
         except:
-            print("Could not get MEI for: ", self.meta.dokumenten_id)
+            print("Warning: Could not get MEI for: ", self.meta.dokumenten_id)
             return ""
 
     @property
@@ -488,7 +489,7 @@ class Data:
                    f'{divisions}' \
                    f'</score></mdiv></body></music>'
         except AttributeError:
-            print(f"Document {self.uuid} has no attribute 'elements'. Len of children attribute: {len(self.elements)}")
+            print(f"Warning: Document {self.uuid} has no attribute 'elements'. Len of children attribute: {len(self.elements)}")
             print(self.elements)
             return ""
 

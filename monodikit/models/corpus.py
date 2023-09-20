@@ -4,7 +4,6 @@ import os
 
 from .document import Chant
 from .source import create_source, Source
-from .genre_specific import ProperTropeComplex
 
 
 class Corpus:
@@ -51,7 +50,7 @@ class Corpus:
         self.documents = []
         self.sample = False
         sources = [create_source(source) for source in glob.glob(self.directory)]
-        self.sources = {source.quellensigle: source for source in sources}
+        self.sources = {source.sigle: source for source in sources}
         self.load_corpus(sample)
 
     # TODO: One should create subcorpora without the need to reload the whole corpus
@@ -84,6 +83,8 @@ class Corpus:
     @property
     def source_metadata(self):
         return [source.meta.as_record for source in self.sources]
+
+from .genre_specific import ProperTropeComplex
 
 def create_document(entry, filters, sources = None):
     """

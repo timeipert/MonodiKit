@@ -1,15 +1,42 @@
-# Monodikit
+# MonodiKit: Medieval Chant Document Analysis and Processing
+MonodiKit is a Python library designed to facilitate the analysis 
+and processing of medieval chant documents. It was specifically 
+tailored to handle data in the monodi+ data format as edited 
+by the Corpus Monodicum project. 
+The library offers a set of classes that 
+provide a wide range of functionalities, 
+including parsing and processing of chant documents, 
+exploring their hierarchical structure, 
+managing metadata, generating musical notation, 
+and extracting relevant information.
 
-A Python library for the analysis and processing of medieval chant documents. 
-
-## Installation
-
-This library will be installable with a package manager. For now, just download the files, unzip the folder and give the folder "monodikit" a name like 
-"chantkit". Then you can import it via
-```
-import chantkit
-```
+## Key Features
+* Parsing and processing of medieval chant documents.
+* Access to the hierarchical structure of chant documents.
+* Management of metadata associated with chant documents.
+* Export to MEI
+* Extraction of relevant information.
 
 ## Usage
-See *examples* folder...
+To use MonodiKit, follow these steps:
 
+Install monodikit from pip:
+
+```bash
+pip install monodikit
+```
+Import the MonodiKit library into your Python project:
+
+```python
+import monodikit
+```
+
+If you want to use the data published by Corpus monodicum, you have to download it from ##.
+Now you can load the data into monodikit with:
+```python
+corpus = monodikit.Corpus("./data/*")
+print(len(corpus.documents))
+```
+
+## Examples
+Check out [Examples.md](https://github.com/timeipert/) for more examples.

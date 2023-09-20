@@ -18,4 +18,3 @@ def compute_intervals(neume_components, start_asterisk = False, filter_division_
             intervals.append(interval)
     return intervals
 
-
