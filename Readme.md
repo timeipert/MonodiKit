@@ -31,7 +31,7 @@ Import the MonodiKit library into your Python project:
 import monodikit
 ```
 
-If you want to use the data published by Corpus monodicum, you have to download it from ##.
+If you want to use the data published by Corpus monodicum, you have to download it from [OSF](https://doi.org/10.17605/OSF.IO/MFPKD).
 Now you can load the data into monodikit with:
 ```python
 corpus = monodikit.Corpus("./data/*")
@@ -39,4 +39,4 @@ print(len(corpus.documents))
 ```
 
 ## Examples
-Check out [Examples.md](https://github.com/timeipert/) for more examples.
+Check out [Examples.md](https://github.com/timeipert/MonodiKit/blob/main/Examples.md) for more examples.
