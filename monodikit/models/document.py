@@ -79,6 +79,10 @@ class NeumeComponent:
     def json(self):
         return {"type": "note", "pitch": f"{self.base}{self.octave}"}
 
+    @property
+    def pitch():
+        return f"{self.base}{self.octave}"
+
     def __str__(self):
         return f"<NeumeComponent base={self.base}, oct={self.octave}>"
 
