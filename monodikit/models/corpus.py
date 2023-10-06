@@ -3,8 +3,8 @@ import random
 import os
 
 from .document import Chant
-from .source import create_source, Source
-from .genre_specific import ProperTropeComplex
+from .source import create_source
+import pickle
 
 
 class Corpus:
@@ -43,18 +43,34 @@ class Corpus:
     ```
     """
 
-    def __init__(self, directory, sample=0, filters=None):
-        if filters is None:
-            filters = {}
-        self.directory = directory
-        self.filters = filters
-        self.documents = []
-        self.sample = False
-        sources = [create_source(source) for source in glob.glob(self.directory)]
-        self.sources = {source.quellensigle: source for source in sources}
-        self.load_corpus(sample)
+    def __init__(self, directory=None, sample=0, filters=None, use_pkl=None):
+        if use_pkl and os.path.exists(use_pkl):
+            print("pkl exists, use pkl..")
+            with open(use_pkl, "rb") as f:
+                corpus_data = pickle.load(f)
+                self.directory = corpus_data.directory
+                self.filters = corpus_data.filters
+                self.documents = corpus_data.documents
+                self.sample = corpus_data.sample
+                self.sources = corpus_data.sources
 
-    # TODO: One should create subcorpora without the need to reload the whole corpus
+        elif directory:
+            print("pkl does not exist.")
+
+            self.directory = directory
+            self.filters = filters
+            self.documents = []
+            self.sample = False
+            sources = [create_source(source) for source in glob.glob(self.directory)]
+            self.sources = {source.sigle: source for source in sources}
+            self.load_corpus(sample)
+            if use_pkl:
+                print("save pkl.")
+                with open(use_pkl, "wb") as f:
+                    pickle.dump(self, f, pickle.HIGHEST_PROTOCOL)
+        print("end __init__")
+            # TODO: One should create subcorpora without the need to reload the whole corpus
+
     def load_corpus(self, sample):
         if not sample:
             self.sample = False
@@ -77,6 +93,20 @@ class Corpus:
                                       for entry in random.sample(entries, sample)
                                       if check_files_exist(entry)]))
 
+    def filter(self, filters):
+        if not callable(filters):
+            Exception("Error  in filter(): argument has to be a callable")
+        if self.filters:
+            filters = lambda document_meta, source_meta: filters(document_meta, source_meta) and self.filters(document_meta, source_meta)
+        filtered_corpus = Corpus()
+        filtered_corpus.documents = [document for document in self.documents if filters(document.meta, self.sources[document.meta.source_id])]
+        filtered_corpus.sources = self.sources
+        filtered_corpus.filters = filters
+        filtered_corpus.sample = self.sample
+        return filtered_corpus
+
+
+
     @property
     def document_metadata(self):
         return [document.meta.as_record for document in self.documents]
@@ -85,7 +115,11 @@ class Corpus:
     def source_metadata(self):
         return [source.meta.as_record for source in self.sources]
 
-def create_document(entry, filters, sources = None):
+
+from .genre_specific import ProperTropeComplex
+
+
+def create_document(entry, filters, sources=None):
     """
     Creates a new instance of a document.
     At first checks for a specific type and assigns a genre-specific subclass
@@ -95,15 +129,16 @@ def create_document(entry, filters, sources = None):
     document_meta = Chant.get_meta(entry)
     source_meta = sources.get(document_meta.source_id, None)
 
-
     if callable(filters):
         if not filters(document_meta, source_meta):
             return None
     else:
+        Exception("Filters have to be a callable")
+   # else:
         # Now checks only for substring
-        for key, value in filters.items():
-            if value not in document_meta.__getattribute__(key):
-                return None
+       # for key, value in filters.items():
+        #    if value not in document_meta.__getattribute__(key):
+         #       return None
 
     if document_meta.genre == "Tropus":
         return ProperTropeComplex(entry)

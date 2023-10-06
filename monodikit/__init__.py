@@ -17,3 +17,4 @@ from .models.genre_specific import (
     Play,
     OrdinaryChant
 )
+from .analysis.search import search_in_window

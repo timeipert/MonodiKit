@@ -27,6 +27,23 @@ class Accidental:
 
         return f'<accid ploc="{self.base}" poct="{self.oct}" accid="{accid}"'
 
+    @property
+    def volipano(self):
+        if self.noteType == "Flat":
+            if self.base == "B":
+                return "i"
+            if self.base == "E" and self.octave == 4:
+                return "w"
+            if self.base == "E" and self.octave == 5:
+                return "x"
+        elif self.noteType == "Natural":
+            if self.base == "B":
+                return "I"
+            if self.base == "E" and self.octave == 4:
+                return "W"
+            if self.base == "E" and self.octave == 5:
+                return "X"
+
 
 @dataclass
 class NeumeComponent:
@@ -38,6 +55,9 @@ class NeumeComponent:
     focus: bool
     index: tuple
     note_to_num = {'C': 1, 'D': 2, 'E': 3, 'F': 4, 'G': 5, 'A': 6, 'B': 7}
+    volpiano_matching = {"F3": "8", "G3": "9", "A3": "a", "B3": "b", "C4": "c", "D4": "d", "E4": "e", "F4": "f",
+                         "G4": "g", "A4": "h", "B4": "i", "C5": "j", "D5": "k", "E5": "l", "F5": "m", "G5": "n",
+                         "A5": "o", "B5": "p", "C6": "q", "D6": "r", "E6": "s"}
 
     def calculate_number(self):
         return (self.octave * 7) + (self.note_to_num[self.base])
@@ -60,6 +80,10 @@ class NeumeComponent:
     @property
     def pitch(self):
         return self.base + str(self.octave)
+
+    @property
+    def volpiano(self):
+        return self.volpiano_matching[self.pitch]
 
     @property
     def mei(self):
@@ -284,6 +308,7 @@ class Division:
                 for note_component in neume.neume_components]
         # if c["kind"] == "Syllable"
 
+
     @property
     def mei(self):
         if len(self.syllables) == 0:
@@ -358,6 +383,14 @@ class Chant:
         except:
             print("Data.Elements is None at: ", self.meta.dokumenten_id)
             return []
+
+    @property
+    def volpiano(self):
+        return [note_component.volpiano for note_component in self.flat_neume_components]
+
+    @property
+    def pitches(self):
+        return [note_component.pitch for note_component in self.flat_neume_components]
 
     @property
     def flat_neume_components_by_division(self):
