@@ -56,8 +56,8 @@ class NeumeComponent:
     index: tuple
     note_to_num = {'C': 1, 'D': 2, 'E': 3, 'F': 4, 'G': 5, 'A': 6, 'B': 7}
     volpiano_matching = {"F3": "8", "G3": "9", "A3": "a", "B3": "b", "C4": "c", "D4": "d", "E4": "e", "F4": "f",
-                         "G4": "g", "A4": "h", "B4": "i", "C5": "j", "D5": "k", "E5": "l", "F5": "m", "G5": "n",
-                         "A5": "o", "B5": "p", "C6": "q", "D6": "r", "E6": "s"}
+                         "G4": "g", "A4": "h", "B4": "j", "C5": "k", "D5": "l", "E5": "m", "F5": "n", "G5": "o",
+                         "A5": "p", "B5": "q", "C6": "r", "D6": "s"}
 
     def calculate_number(self):
         return (self.octave * 7) + (self.note_to_num[self.base])

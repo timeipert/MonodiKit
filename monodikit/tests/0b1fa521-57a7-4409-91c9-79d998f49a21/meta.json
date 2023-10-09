@@ -1,0 +1,30 @@
+{
+  "id" : "0b1fa521-57a7-4409-91c9-79d998f49a21",
+  "quelle_id" : "Aa 13",
+  "dokumenten_id" : "Aa 13-157v-14",
+  "gattung1" : "Sequenz",
+  "gattung2" : "Textiert",
+  "festtag" : "Iohannes Evangelista",
+  "feier" : "Messe",
+  "textinitium" : "Iohannes Iesu Christo",
+  "bibliographischerverweis" : "AH 53, 168",
+  "druckausgabe" : "CM III",
+  "zeilenstart" : "14",
+  "foliostart" : "157v",
+  "kommentar" : "",
+  "editionsstatus" : "ediert",
+  "additionalData" : {
+    "Melodiennummer_Katalog" : "",
+    "Editor" : "andreas.pfisterer@uni-wuerzburg.de",
+    "Bezugsgesang" : "",
+    "Melodie_Standard" : "Romana",
+    "Endseite" : "158",
+    "Startposition" : "",
+    "Zusatz_zu_Textinitium" : "",
+    "Referenz_auf_Spiel" : "",
+    "Endzeile" : "1",
+    "Nachtragsschicht" : "A",
+    "Überlieferungszustand" : "",
+    "Melodie_Quelle" : ""
+  }
+}
