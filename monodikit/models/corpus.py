@@ -119,7 +119,7 @@ class Corpus:
 from .genre_specific import ProperTropeComplex
 
 
-def create_document(entry, filters, sources=None):
+def create_document(entry, filters = None, sources=None):
     """
     Creates a new instance of a document.
     At first checks for a specific type and assigns a genre-specific subclass
@@ -127,13 +127,14 @@ def create_document(entry, filters, sources=None):
      If no suitable subclass is found, it returns a generic Document() instance.
     """
     document_meta = Chant.get_meta(entry)
-    source_meta = sources.get(document_meta.source_id, None)
-
-    if callable(filters):
-        if not filters(document_meta, source_meta):
-            return None
-    else:
-        Exception("Filters have to be a callable")
+    if sources:
+        source_meta = sources.get(document_meta.source_id, None)
+    if filters:
+        if callable(filters):
+            if not filters(document_meta, source_meta):
+                return None
+        else:
+            Exception("Filters have to be a callable")
    # else:
         # Now checks only for substring
        # for key, value in filters.items():

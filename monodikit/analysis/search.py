@@ -1,9 +1,21 @@
+from .utility import Utility
+class Segment:
+    def __init__(self, indices, window, window_offset):
+        self.indices = indices
+        self.window = window
+        self.window_offset = window_offset
+
+class SearchResult:
+    def __init__(self, chant, segments):
+        self.chant = chant
+        self.segments = segments
+
 class Search:
     def __init__(self):
         pass
 
     @staticmethod
-    def search_in_window(corpus, pattern, window):
+    def search_in_window(corpus, pattern, window, preprocess=None):
         """
         Searches for a pattern within a window in a given corpus.
 
@@ -11,17 +23,31 @@ class Search:
             corpus (Corpus): The corpus containing the documents to search.
             pattern (str): The pattern to search for.
             window (int): The window length for the search.
+            preprocess (str): The window length for the search.
 
         Returns:
             list: List of search results containing segments and corresponding chant information.
         """
-        data = [(document, document.flat_neume_components) for document in corpus.documents]
         search_result = []
-        for document in data:
-            data_str = [f"{note.base}{note.octave}" for note in document[1]]
-            segments = Search.search_pattern_in_window(data_str, pattern, window)
-            if len(segments):
-                search_result.append({"segments": segments, "chant": document[0]})
+        if preprocess == "intervals":
+            data = [(document, Utility.compute_intervals(document.flat_neume_components)) for document in corpus.documents]
+            for document in data:
+
+                data_str = [f"{intv}" for intv in document[1]]
+
+                segments = Search.search_pattern_in_window(data_str, pattern, window)
+                if len(segments):
+                    result_object = SearchResult(document[0], segments)
+                    search_result.append(result_object)
+        else:
+            data = [(document, document.flat_neume_components) for document in corpus.documents]
+            for document in data:
+
+                data_str = [f"{note.base}{note.octave}" for note in document[1]]
+                segments = Search.search_pattern_in_window(data_str, pattern, window)
+                if len(segments):
+                    result_object = SearchResult(document[0], segments)
+                    search_result.append(result_object)
         return search_result
 
     @staticmethod
@@ -43,7 +69,8 @@ class Search:
             window = text[i:i + window_length]
             window_indices = Search.is_pattern_in_window(window, pattern)
             if window_indices:
-                segments.append({"window_offset": i, "ids": window_indices, "window": window})
+                segment = Segment(window_indices, window, i)
+                segments.append(segment)
         return segments
 
     @staticmethod
@@ -90,25 +117,25 @@ class Search:
             notation = ""
             notation += '<td class="notation">'
             close_span = False
-            for index, pitch in enumerate(result["chant"].volpiano):
-                for segment in result["segments"]:
+            for index, pitch in enumerate(result.chant.volpiano):
+                for segment in result.segments:
                     if close_span:
                         notation += "</span>"
                         close_span = False
-                    if segment["window_offset"] + len(segment["window"])-1 == index:
+                    if segment.window_offset + len(segment.window)-1 == index:
                         notation += '</td><td class="notation">'
-                    if segment["window_offset"] == index:
+                    if segment.window_offset == index:
                         notation += '</td><td class="notation">'
 
-                    for id in segment["ids"]:
-                        if (id + segment["window_offset"]) == index:
+                    for id in segment.indices:
+                        if (id + segment.window_offset) == index:
                             notation += '<span style="color: red">'
                             close_span = True
                 notation += pitch
                 notation += "-"
             notation += "</td>"
             html += (
-                f'<tr><td>{result["chant"].meta.initial_text} – {result["chant"].meta.document_id} - {result["chant"].meta.genre} </td>'
+                f'<tr><td>{result.chant.meta.initial_text} – {result.chant.meta.document_id} - {result.chant.meta.genre} </td>'
                 f'{notation}</tr>')
         html += "</table></body></html>"
         return html
@@ -128,10 +155,10 @@ class Search:
         mafft_input = {}
         for result in results:
             i = 1
-            for segment in result['segments']:
+            for segment in result.segments:
                 i += 1
-                name = f'{result["chant"].meta.document_id.replace(" ", "")}-{i}'
-                volp = result["chant"].volpiano
-                sl = slice(segment["window_offset"] - context, segment["window_offset"] + len(segment["window"]) + context)
+                name = f'{result.chant.meta.document_id.replace(" ", "")}-{i}'
+                volp = result.chant.volpiano
+                sl = slice(segment.window_offset - context, segment.window_offset + len(segment.window) + context)
                 mafft_input[name] = "".join(volp[sl])
         return mafft_input

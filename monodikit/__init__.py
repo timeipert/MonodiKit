@@ -1,4 +1,4 @@
-from .models.utility import compute_intervals
+
 from .models.document import (
     Chant,
     Division,
@@ -19,6 +19,9 @@ from .models.genre_specific import (
 )
 from .analysis.search import (
     Search
+)
+from .analysis.utility import (
+    Utility,
 )
 from .analysis.synopsis import (
     Synopsis

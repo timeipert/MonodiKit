@@ -28,7 +28,7 @@ class Accidental:
         return f'<accid ploc="{self.base}" poct="{self.oct}" accid="{accid}"'
 
     @property
-    def volipano(self):
+    def volpiano(self):
         if self.noteType == "Flat":
             if self.base == "B":
                 return "i"
@@ -43,6 +43,10 @@ class Accidental:
                 return "W"
             if self.base == "E" and self.octave == 5:
                 return "X"
+
+    @property
+    def json(self):
+        return {"type": "accidental", "pitch": f"{self.base}{self.octave}"}
 
 
 @dataclass
@@ -167,7 +171,7 @@ class Neume:
 
     @property
     def json(self):
-        return {"type": "neume", "elements": [neume_components.json for neume_components in self.neume_components]}
+        return {"type": "neume", "elements": [neume_components.json for neume_components in self.neume_content]}
 
 
 @dataclass
@@ -305,7 +309,7 @@ class Division:
                 for editorial_line in self.editorial_lines
                 for syllable in editorial_line.syllables
                 for neume in syllable.neumes
-                for note_component in neume.neume_components]
+                for note_component in neume.neume_content]
         # if c["kind"] == "Syllable"
 
 

@@ -54,3 +54,27 @@ class TestSyllable(unittest.TestCase):
         self.assertEqual(syllable.mei, expected_mei)
 
 
+class TestVolpiano(unittest.TestCase):
+    def test_one_doc(self):
+        ground_truth = ['d', 'e', 'd', 'c', 'f', 'e', 'd', 'e', 'g', 'h', 'i', 'j', 'h', 'g', 'h', 'g', 'g', 'f', 'e', 'd', 'd', 'e', 'd',
+         'c', 'f', 'g', 'f', 'e', 'd', 'e', 'g', 'h', 'i', 'j', 'h', 'g', 'f', 'e', 'd', 'e', 'f', 'e', 'd', 'c', 'd', 'h',
+         'g', 'h', 'l', 'l', 'h', 'e', 'f', 'g', 'g', 'f', 'e', 'd', 'e', 'd', 'e', 'g', 'i', 'h', 'j', 'h', 'g', 'f', 'e',
+         'd', 'c', 'e', 'f', 'e', 'd', 'c', 'd', 'd', 'f', 'h', 'd', 'e', 'd', 'c', 'g', 'e', 'd', 'l', 'l', 'h', 'k', 'j',
+         'h', 'g', 'h', 'e', 'f', 'g', 'f', 'e', 'd', 'e', 'd', 'e', 'g', 'g', 'h', 'd', 'e', 'f', 'e', 'd', 'c', 'e', 'd',
+         'e', 'f', 'e', 'd', 'c', 'd', 'd', 'f', 'g', 'h', 'i', 'j', 'h', 'g', 'f', 'e', 'd', 'f', 'e', 'c', 'd', 'f', 'g',
+         'h', 'i', 'j', 'h', 'g', 'f', 'e', 'd', 'f', 'e', 'c', 'd', 'e', 'g', 'f', 'g', 'f', 'e', 'd', 'e', 'c', 'd', 'e',
+         'f', 'g', 'f', 'e', 'd', 'e', 'd', 'e', 'g', 'f', 'g', 'e', 'd', 'e', 'c', 'd', 'e', 'f', 'g', 'f', 'e', 'd', 'e',
+         'd', 'h', 'h', 'f', 'g', 'e', 'd', 'e', 'c', 'd', 'e', 'g', 'h', 'i', 'j', 'h', 'g', 'f', 'e', 'd', 'd', 'e', 'f',
+         'e', 'd', 'c', 'd', 'h', 'h', 'f', 'g', 'e', 'd', 'e', 'c', 'd', 'e', 'g', 'h', 'i', 'j', 'h', 'g', 'f', 'e', 'd',
+         'd', 'e', 'f', 'e', 'd', 'c', 'd', 'c', 'e', 'g', 'h', 'g', 'h', 'j', 'l', 'k', 'j', 'l', 'j', 'h', 'h', 'g', 'f',
+         'e', 'd', 'e', 'd', 'd', 'e', 'f', 'e', 'd', 'c', 'e', 'f', 'g', 'f', 'e', 'd', 'e', 'd', 'c', 'e', 'g', 'h', 'g',
+         'h', 'j', 'l', 'k', 'j', 'l', 'j', 'h', 'h', 'f', 'e', 'd', 'e', 'd', 'd', 'e', 'f', 'e', 'd', 'c', 'e', 'f', 'g',
+         'f', 'e', 'd', 'e', 'd', 'c', 'e', 'g', 'h', 'g', 'h', 'j', 'k', 'j', 'h', 'l', 'j', 'h', 'h', 'd', 'h', 'k', 'j',
+         'g', 'h', 'g', 'f', 'f', 'e', 'd', 'd', 'e', 'f', 'e', 'd', 'd', 'c', 'c', 'e', 'g', 'f', 'g', 'e', 'd', 'c', 'e',
+         'g', 'h', 'g', 'h', 'j', 'k', 'j', 'h', 'l', 'j', 'h', 'h', 'd', 'h', 'h', 'k', 'j', 'g', 'h', 'g', 'f', 'f', 'e',
+         'd', 'd', 'e', 'f', 'e', 'd', 'c', 'e', 'g', 'h', 'g', 'g', 'e', 'd', 'd', 'e', 'g', 'h', 'd', 'e', 'd', 'c', 'g',
+         'f', 'e', 'd']
+        doc = create_document(mock.chant_data["entry_path"])
+        self.assertEqual(doc.volpiano, ground_truth)
+
+

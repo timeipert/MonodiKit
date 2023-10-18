@@ -18,6 +18,7 @@ class Synopsis:
             f.write(input_content)
         command = f"mafft --auto --anysymbol temp.fasta"
         out = subprocess.run(command, shell=True, capture_output=True)
+
         return Synopsis.parse_mafft_output(str(out.stdout))
 
     @staticmethod
@@ -50,9 +51,10 @@ class Synopsis:
         """
         sequences = []
         blocks = mafft_output.strip().split('>')[1:]
+        print("BLOCKS", blocks)
 
         for block in blocks:
-            lines = block.strip().split('\n')
+            lines = block.strip().split('\\n')
 
             name = lines[0].strip().split()[0]
             sequence = ''.join(line.strip() for line in lines[1:])
@@ -81,7 +83,7 @@ class Synopsis:
             if highlight:
                 highlight_offset = [n + offset for n in highlight[i]]
                 char_count = 0
-                for char in alignment["sequence"]:
+                for char in alignment['sequence']:
                     if char == "-":
                         sequence += "-"
                     else:
@@ -91,7 +93,7 @@ class Synopsis:
                             sequence += char
                         char_count += 1
             else:
-                sequence = ",".join(list(alignment["sequence"]))
+                sequence = ",".join(list(alignment['sequence']))
             html_output += f'<tr><td>{name}</td><td style="text-align: left; font-family: Volpiano; font-size:3em; white-space: nowrap;">{sequence}</td></tr>'
         html_output += "</table>"
         return html_output
