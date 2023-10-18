@@ -111,35 +111,56 @@ class Search:
         Returns:
             str: HTML formatted representation of the search results.
         """
-        html = "<html><head><style>.notation {font-family: Volpiano; font-size:2em;white-space:nowrap}</style></head><body>"
-        html += (f"<h2>Results</h2>"
-                f"<table>")
+        # Define the style for the Volpiano notation
+        notation_style = ' style="font-family: Volpiano; font-size: 2em; white-space: nowrap;" '
 
+        # Initialize the HTML string
+        html = (
+            "<h2>Results</h2>"
+            "<table>"
+        )
+
+        # Iterate through each search result and generate HTML representation
         for result in results:
             notation = ""
-            notation += '<td class="notation">'
-            close_span = False
+            notation += f'<td {notation_style}>'  # Start a table cell with Volpiano style
+
+            close_span = False  # Flag to close the span tag for highlighting
+            broken = False  # Flag to indicate if highlighting is broken
+
+            # Iterate through the volpiano representation of the chant
             for index, pitch in enumerate(result.chant.volpiano):
                 for segment in result.segments:
-                    if close_span:
-                        notation += "</span>"
-                        close_span = False
-                    if segment.window_offset + len(segment.window)-1 == index:
-                        notation += '</td><td class="notation">'
-                    if segment.window_offset == index:
-                        notation += '</td><td class="notation">'
-
                     for id in segment.indices:
                         if (id + segment.window_offset) == index:
-                            notation += '<span style="color: red">'
+                            notation += '<span style="color: red">'  # Start highlighting
                             close_span = True
+                            broken = True
+                            break
+                    if broken:
+                        broken = False
+                        break
+
+                # Add the pitch to the notation
                 notation += pitch
                 notation += "-"
+
+                if close_span:
+                    notation += "</span>"  # Close the highlighting span
+                    close_span = False
+
             notation += "</td>"
+
+            # Construct the row with chant information and notation
             html += (
-                f'<tr><td>{result.chant.meta.initial_text} – {result.chant.meta.document_id} - {result.chant.meta.genre} </td>'
-                f'{notation}</tr>')
-        html += "</table></body></html>"
+                f'<tr><td style="white-space: nowrap">{result.chant.meta.initial_text} - '
+                f'{result.chant.meta.document_id} - {result.chant.meta.genre} </td>'
+                f'<td>{len(result.segments)}</td>'
+                f'{notation}</tr>'
+            )
+
+        # Close the table
+        html += "</table>"
         return html
 
     @staticmethod
