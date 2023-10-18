@@ -1,6 +1,4 @@
 import subprocess
-
-
 class Synopsis:
     @staticmethod
     def run_mafft(input_data):

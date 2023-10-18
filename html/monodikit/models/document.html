@@ -1,0 +1,2324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>monodikit.models.document API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>monodikit.models.document</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import glob
+import json
+from dataclasses import dataclass, field
+from typing import List
+from xml.sax.saxutils import escape
+import functools
+
+
+@dataclass()
+class Accidental:
+    uuid: str
+    base: str
+    liquescent: str
+    noteType: str
+    octave: int
+    focus: bool
+    index: tuple
+
+    @property
+    def mei(self):
+        if self.noteType == &#34;Flat&#34;:
+            accid = &#34;f&#34;
+        elif self.noteType == &#34;Natural&#34;:
+            accid = &#34;n&#34;
+        else:
+            accid = &#34;?&#34;
+
+        return f&#39;&lt;accid ploc=&#34;{self.base}&#34; poct=&#34;{self.oct}&#34; accid=&#34;{accid}&#34;&#39;
+
+    @property
+    def volpiano(self):
+        if self.noteType == &#34;Flat&#34;:
+            if self.base == &#34;B&#34;:
+                return &#34;i&#34;
+            if self.base == &#34;E&#34; and self.octave == 4:
+                return &#34;w&#34;
+            if self.base == &#34;E&#34; and self.octave == 5:
+                return &#34;x&#34;
+        elif self.noteType == &#34;Natural&#34;:
+            if self.base == &#34;B&#34;:
+                return &#34;I&#34;
+            if self.base == &#34;E&#34; and self.octave == 4:
+                return &#34;W&#34;
+            if self.base == &#34;E&#34; and self.octave == 5:
+                return &#34;X&#34;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;accidental&#34;, &#34;pitch&#34;: f&#34;{self.base}{self.octave}&#34;}
+
+
+@dataclass
+class NeumeComponent:
+    uuid: str
+    base: str
+    liquescent: bool
+    noteType: str
+    octave: int
+    focus: bool
+    index: tuple
+    note_to_num = {&#39;C&#39;: 1, &#39;D&#39;: 2, &#39;E&#39;: 3, &#39;F&#39;: 4, &#39;G&#39;: 5, &#39;A&#39;: 6, &#39;B&#39;: 7}
+    volpiano_matching = {&#34;F3&#34;: &#34;8&#34;, &#34;G3&#34;: &#34;9&#34;, &#34;A3&#34;: &#34;a&#34;, &#34;B3&#34;: &#34;b&#34;, &#34;C4&#34;: &#34;c&#34;, &#34;D4&#34;: &#34;d&#34;, &#34;E4&#34;: &#34;e&#34;, &#34;F4&#34;: &#34;f&#34;,
+                         &#34;G4&#34;: &#34;g&#34;, &#34;A4&#34;: &#34;h&#34;, &#34;B4&#34;: &#34;j&#34;, &#34;C5&#34;: &#34;k&#34;, &#34;D5&#34;: &#34;l&#34;, &#34;E5&#34;: &#34;m&#34;, &#34;F5&#34;: &#34;n&#34;, &#34;G5&#34;: &#34;o&#34;,
+                         &#34;A5&#34;: &#34;p&#34;, &#34;B5&#34;: &#34;q&#34;, &#34;C6&#34;: &#34;r&#34;, &#34;D6&#34;: &#34;s&#34;}
+
+    def calculate_number(self):
+        return (self.octave * 7) + (self.note_to_num[self.base])
+
+    def __lt__(self, other):
+        return self.calculate_number() &lt; other.calculate_number()
+
+    def __gt__(self, other):
+        return self.calculate_number() &gt; other.calculate_number()
+
+    def __le__(self, other):
+        return self.calculate_number() &lt;= other.calculate_number()
+
+    def __ge__(self, other):
+        return self.calculate_number() &gt;= other.calculate_number()
+
+    def __eq__(self, other):
+        return self.calculate_number() == other.calculate_number() and self.liquescent == other.liquescent
+
+    @property
+    def pitch(self):
+        return self.base + str(self.octave)
+
+    @property
+    def volpiano(self):
+        return self.volpiano_matching[self.pitch]
+
+    @property
+    def mei(self):
+        if self.index[-1] == 0:
+            con = &#34;&#34;
+        else:
+            con = &#39; con=&#34;g&#34;&#39;
+
+        if self.liquescent:
+            return f&#39;&lt;nc pname=&#34;{self.base.lower()}&#34; oct=&#34;{self.octave}&#34;{con}&gt;&lt;liquescent/&gt;&lt;/nc&gt;&#39;
+        elif self.noteType != &#34;Normal&#34;:
+            return f&#39;&lt;nc pname=&#34;{self.base.lower()}&#34; oct=&#34;{self.octave}&#34;{con}&gt;&lt;{self.noteType}/&gt;&lt;/nc&gt;&#39;
+        else:
+            return f&#39;&lt;nc pname=&#34;{self.base.lower()}&#34; oct=&#34;{self.octave}&#34;{con}/&gt;&#39;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;note&#34;, &#34;pitch&#34;: f&#34;{self.base}{self.octave}&#34;}
+
+    @property
+    def pitch(self):
+        return f&#34;{self.base}{self.octave}&#34;
+
+    def __str__(self):
+        return f&#34;&lt;NeumeComponent base={self.base}, oct={self.octave}&gt;&#34;
+
+    def __repr__(self):
+        return f&#34;&lt;NeumeComponent base={self.base}, oct={self.octave}&gt;&#34;
+
+
+@dataclass
+class EmptyNeumeComponent(NeumeComponent):
+    @property
+    def pitch(self):
+        return &#34;Empty&#34;
+
+    @property
+    def mei(self):
+        return &#34;&#34;
+
+
+class Neume:
+    &#34;&#34;&#34;
+    A class representing a neume loosely following the MEI specification.
+
+    &#34;&#34;&#34;
+
+    def __init__(self, spaced_element, index):  #: Takes a dictionary representing the spaced element of the neume.
+        self.index = index
+        self.neume_content = self.get_neume_content(spaced_element)  #: A list of `NeumeComponent` objects.
+        self.neume_components = [element for element in self.neume_content if type(element) == NeumeComponent]
+        self.accidentals = [element for element in self.neume_content if type(element) == Accidental]
+
+    &#34;&#34;&#34;Parses NeumeComponents and Accidentals within a Neume object.&#34;&#34;&#34;
+    def parse_neume_content(self, element, index):
+        try:
+            if element[&#34;noteType&#34;] == &#34;Normal&#34;:
+                neume = NeumeComponent(**element, index=self.index + (index,))
+                low_peak = NeumeComponent(uuid=&#34;&#34;, base=&#34;G&#34;, liquescent=False, noteType=&#34;Normal&#34;, octave=3, focus=False,
+                                          index=self.index + (0,))
+                comment_note = NeumeComponent(uuid=&#34;&#34;, base=&#34;A&#34;, liquescent=True, noteType=&#34;Normal&#34;, octave=5,
+                                              focus=False, index=self.index + (0,))
+                if neume &lt; low_peak or neume == comment_note:
+                    # return EmptyNeumeComponent(**element, index=self.index + (index,))
+                    return None
+                else:
+                    return neume
+            elif element[&#34;noteType&#34;] == &#34;Flat&#34; or element.noteType == &#34;Natural&#34;:
+                return Accidental(**element, index=self.index + (index,))
+        except AttributeError:
+            return None
+
+    &#34;&#34;&#34;Wraps whole content up into a list&#34;&#34;&#34;
+    def get_neume_content(self, spaced_element):
+        return [neume for neume in [self.parse_neume_content(connected_neume_component, (index1 + index2))
+                                    for index2, neume_component in enumerate(spaced_element[&#34;nonSpaced&#34;])
+                                    for index1, connected_neume_component in enumerate(neume_component[&#34;grouped&#34;])] if
+                neume is not None]
+
+    @property
+    def mei(self):
+        neume_components = &#34;&#34;.join([nc.mei for nc in self.neume_components])
+        if len(self.accidentals):
+            accidentals = &#34;&#34;.join([accid.mei for accid in self.accidentals])
+        else:
+            accidentals = &#34;&#34;
+        return f&#34;{accidentals}&lt;neume&gt;{neume_components}&lt;/neume&gt;&#34;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;neume&#34;, &#34;elements&#34;: [neume_components.json for neume_components in self.neume_content]}
+
+
+@dataclass
+class Syllable:
+    uuid: str
+    kind: str
+    index: tuple
+    text: str = &#34;&#34;
+    syllableType: str = &#34;&#34;
+    notes: dict = field(default_factory=dict)  # Notes good terminology? includes groups etc.
+    endsWord: bool = False
+    focus: bool = False
+    hasNotes: bool = None
+    neumes: list = field(init=False)  # How to name elements / notes? notes is now input, elements the
+
+    # processed Notes instance
+    def __post_init__(self):
+        if self.syllableType == &#34;Normal&#34;:
+            self.neumes = self.get_neumes(self.notes)
+        else:
+            self.neumes = []
+
+    def get_neumes(self, notes):
+        if &#34;spaced&#34; not in notes:
+            return []
+        return [Neume(neume, self.index + (index,)) for index, neume in enumerate(notes[&#34;spaced&#34;])]
+
+    @property
+    def mei(self):
+        neumes = &#34;&#34;.join([neume.mei for neume in self.neumes])
+        return f&#34;&lt;syllable&gt;&lt;syl&gt;{escape(self.text)}&lt;/syl&gt;{neumes}&lt;/syllable&gt;&#34;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;syllable&#34;, &#34;lyric&#34;: self.text, &#34;elements&#34;: [neume.json for neume in self.neumes]}
+
+
+
+@dataclass
+class EditorialLine:
+    &#34;&#34;&#34;
+    A class representing a Editorial Line associated with the textual phrases.
+    &#34;&#34;&#34;
+    uuid: str
+    kind: str
+    children: list
+    index: tuple
+
+    def __post_init__(self):
+        self.syllables = self.get_syllables()
+
+    def get_syllables(self):
+        return [Syllable(**div, index=self.index + (index,))
+                for index, div in enumerate(self.children)
+                ]
+
+
+@dataclass
+class Division:
+    &#34;&#34;&#34;
+    A class representing a division of a medieval chant document.
+    &#34;&#34;&#34;
+    data: list  #: A list of data elements for the division.
+    children: list  #: A list of child elements for the division.
+    index: tuple
+
+    def __post_init__(self):
+        self.elements = []
+        self.editorial_lines = []
+        children_wo_paratext = self.filter_paratexts(self.children)
+        if &#34;data&#34; in [keys for child in children_wo_paratext for keys in child.keys()]:
+
+            self.interdivision = True
+            self.elements = [Division(div[&#34;data&#34;], div[&#34;children&#34;], self.index + (index,)) for index, div in
+                             enumerate(children_wo_paratext)]
+            self.editorial_lines: list = self.get_flat_editorial_lines()
+        else:
+            self.interdivision = False
+            self.elements = []
+            self.editorial_lines: list = self.get_editorial_lines()  #: A list of `Syllable` objects representing the syllables in the division.
+
+            # print(&#34;syllables&#34;, self.syllables)
+
+        self.signature: str = self.get_signature()  #: The signature of the division, if present.
+        self.status: str = self.get_status()  #: The status of the division, if present.
+
+    def get_signature(self):
+        division_metadata = {d[&#34;name&#34;]: d[&#34;data&#34;] for d in self.data}
+        if &#34;Signatur&#34; in division_metadata.keys():
+            return division_metadata[&#34;Signatur&#34;]
+        else:
+            return None
+
+    def get_status(self):
+        dd = {d[&#34;name&#34;]: d[&#34;data&#34;] for d in self.data}
+        if &#34;Status&#34; in dd.keys():
+            return dd[&#34;Status&#34;]
+        else:
+            return None
+
+    def filter_paratexts(self, children):
+        return [child for child in children if child[&#34;kind&#34;] != &#34;ParatextContainer&#34;]
+
+    def get_editorial_lines(self):
+        editorial_lines = []
+        for index, child in enumerate(self.filter_paratexts(self.children)):
+            try:
+                editorial_lines.append(EditorialLine(**child, index=self.index + (index,)))
+            except:
+                print(&#34;Warning: Expected editorial line but got: &#34;, child)
+        return editorial_lines
+
+    def get_flat_editorial_lines(self):
+        if len(self.elements):
+            if self.elements[0].interdivision:
+                return [editorial_line for division in self.elements for editorial_line in
+                        division.get_flat_editorial_lines()]
+            else:
+                return [editorial_line for division in self.elements for editorial_line in division.editorial_lines]
+        else:
+            return []
+
+    @property
+    def flat_syllables(self):
+        &#34;&#34;&#34; Get a list of syllables within a division. &#34;&#34;&#34;
+        return [syllable
+                for editorial_line in self.editorial_lines
+                for syllable in editorial_line.syllables]
+
+    @property
+    def flat_neumes(self):
+        &#34;&#34;&#34; Get a list of neumes within a division. &#34;&#34;&#34;
+        return [neume
+                for editorial_line in self.editorial_lines
+                for syllable in editorial_line.syllables
+                for neume in syllable.neumes]
+
+    @property
+    def flat_neume_components(self):
+        &#34;&#34;&#34; Get a list of neume components within a division. &#34;&#34;&#34;
+        return [note_component
+                for editorial_line in self.editorial_lines
+                for syllable in editorial_line.syllables
+                for neume in syllable.neumes
+                for note_component in neume.neume_content]
+        # if c[&#34;kind&#34;] == &#34;Syllable&#34;
+
+
+    @property
+    def mei(self):
+        if len(self.syllables) == 0:
+            return &#34;&#34;
+        syllables = &#34;&#34;.join([syllable.mei for syllable in self.syllables])
+        return f&#34;&lt;section&gt;&lt;staff&gt;&lt;layer&gt;{syllables}&lt;/layer&gt;&lt;/staff&gt;&lt;/section&gt;&#34;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;section&#34;, &#34;elements&#34;: [syllable.json for syllable in self.syllables]}
+
+    # def get_linechange(self):
+    #     return [ Syllable(c) for child in self.children for d in child[&#34;children&#34;] for c in d[&#34;children&#34;] ]
+
+
+class Chant:
+    &#34;&#34;&#34;
+    A class representing a document or unit of medieval chant.
+
+    A document is represented by its metadata and data,
+    which are loaded from JSON files located in a directory specified
+    by the entry parameter.
+    &#34;&#34;&#34;
+
+    def __init__(self, entry_path):
+        self.meta = self.get_meta(entry_path)
+        data = self.get_data(entry_path)
+        if data:
+            self.data = data
+        else:
+            raise Exception(&#34;Could not load data&#34;, self.meta.id)
+        self.type = self.meta.genre  #: The type of the document, taken from the gattung1 attribute of its metadata.
+
+    @staticmethod
+    def get_meta(entry_path):
+        if glob.glob(entry_path + &#34;/meta.json&#34;):
+            with open(entry_path + &#34;/meta.json&#34;) as f:
+                metadata = json.load(f)
+                meta = Meta(**metadata)
+            return meta
+        else:
+            return
+
+    @staticmethod
+    def get_data(entry):
+        if glob.glob(entry + &#34;/data.json&#34;):
+            with open(entry + &#34;/data.json&#34;) as f:
+                data = Data(**json.load(f))
+            return data
+        else:
+            return None
+
+    @property
+    def flat_syllables(self):
+        return [syllable
+                for division in self.data.elements
+                for el in division.editorial_lines
+                for syllable in el.syllables]
+
+    @property
+    def flat_neumes(self):
+        return [neume
+                for division in self.data.elements
+                for neume in division.flat_neumes]
+
+    @property
+    def flat_neume_components(self):
+        try:
+            return [neume_component
+                    for division in self.data.elements
+                    for neume_component in division.flat_neume_components]
+        except:
+            print(&#34;Warning for Chant property flat_neume_components: &#34;
+                  &#34;data.elements is None at: &#34;, self.meta.dokumenten_id)
+            return []
+
+    @property
+    def volpiano(self):
+        return [note_component.volpiano for note_component in self.flat_neume_components]
+
+    @property
+    def pitches(self):
+        return [note_component.pitch for note_component in self.flat_neume_components]
+
+    @property
+    def flat_neume_components_by_division(self):
+        return [[neume_component
+                 for neume_component in division.flat_neume_components]
+                for division in self.data.elements]
+
+    @property
+    def mei(self):
+        try:
+            return f&#39;&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&#39; \
+                   &#39;&lt;?xml-model href=&#34;https://music-encoding.org/schema/dev/mei-Neumes.rng&#34; &#39; \
+                   &#39;type=&#34;application/xml&#34; schematypens=&#34;http://relaxng.org/ns/structure/1.0&#34;?&gt;&#39; \
+                   &#39;&lt;?xml-model href=&#34;https://music-encoding.org/schema/dev/mei-Neumes.rng&#34; &#39; \
+                   &#39;type=&#34;application/xml&#34; schematypens=&#34;http://purl.oclc.org/dsdl/schematron&#34;?&gt;&#39; \
+                   &#39;&lt;mei xmlns=&#34;http://www.music-encoding.org/ns/mei&#34;&gt;&lt;meiHead&gt;&lt;fileDesc&gt;&lt;titleStmt&gt;&#39; \
+                   &#39;&lt;title&gt;&lt;/title&gt;&lt;/titleStmt&gt;&lt;pubStmt&gt;&lt;/pubStmt&gt;&lt;/fileDesc&gt;&lt;/meiHead&gt;&#39; \
+                   f&#39;{self.data.mei}&#39; \
+                   &#39;&lt;/mei&gt;&#39;
+        except:
+            print(&#34;Warning: Could not get MEI for: &#34;, self.meta.dokumenten_id)
+            return &#34;&#34;
+
+    @property
+    def json(self):
+        return self.data.json
+
+
+class Meta:
+
+    def __init__(self, id, quelle_id, dokumenten_id, gattung1, gattung2, festtag, feier, textinitium,
+                 bibliographischerverweis, druckausgabe, zeilenstart, foliostart, kommentar, editionsstatus,
+                 additionalData):
+        self.uuid = id,
+        self.source_id = quelle_id
+        self.document_id = dokumenten_id
+        self.genre = gattung1
+        self.subgenre = gattung2
+        self.feast_day = festtag
+        self.feast_time = feier
+        self.initial_text = textinitium
+
+        self.initial_folio = foliostart
+        self.initial_line = zeilenstart
+        self.ending_folio = additionalData.get(&#34;Endseite&#34;, &#34;&#34;)
+        self.ending_line = additionalData.get(&#34;Endzeile&#34;, &#34;&#34;)
+
+        self.bibliographical_reference = bibliographischerverweis
+        self.cm_volume = druckausgabe
+
+        self.editorial_comment = kommentar
+        self.melody_number = additionalData.get(&#34;Melodiennummer_Katalog&#34;, &#34;&#34;)
+        self.melodyname_standardized = additionalData.get(&#34;Melodie_Standard&#34;, &#34;&#34;)
+        self.melodyname_diplomatic = additionalData.get(&#34;Melodie_Quelle&#34;, &#34;&#34;)
+        self.editor = additionalData.get(&#34;Editor&#34;, &#34;&#34;)
+        self.related_chant = additionalData.get(&#34;Bezugsgesang&#34;, &#34;&#34;)
+        self.liturgical_play_id = additionalData.get(&#34;Referenz_auf_Spiel&#34;, &#34;&#34;)
+        self.completeness = additionalData.get(&#34;Zusatz_zu_Textinitium&#34;, &#34;&#34;)
+        self.layer_of_addendum = additionalData.get(&#34;Nachtragsschicht&#34;, &#34;&#34;)
+        self.condition_of_transmission = additionalData.get(&#34;\u00dcberlieferungszustand&#34;, &#34;&#34;)
+        self.iiif_urls = additionalData.get(&#34;iiifs&#34;, &#34;&#34;)
+
+    @property
+    def as_record(self):
+        return {
+            &#34;uuid&#34;: self.uuid,
+            &#34;source_id&#34;: self.source_id,
+            &#34;document_id&#34;: self.document_id,
+            &#34;genre&#34;: self.genre,
+            &#34;subgenre&#34;: self.subgenre,
+            &#34;feast_day&#34;: self.feast_day,
+            &#34;feast_time&#34;: self.feast_time,
+            &#34;initial_text&#34;: self.initial_text,
+
+            &#34;initial_folio&#34;: self.initial_folio,
+            &#34;initial_line&#34;: self.initial_line,
+            &#34;ending_folio&#34;: self.ending_folio,
+            &#34;ending_line&#34;: self.ending_line,
+
+            &#34;bibliographical_reference&#34;: self.bibliographical_reference,
+            &#34;cm_volume&#34;: self.cm_volume,
+
+            &#34;editorial_comment&#34;: self.editorial_comment,
+            &#34;melody_number&#34;: self.melody_number,
+            &#34;melodyname_standardized&#34;: self.melodyname_standardized,
+            &#34;melodyname_diplomatic&#34;: self.melodyname_diplomatic,
+            &#34;editor&#34;: self.editor,
+            &#34;related_chant&#34;: self.related_chant,
+            &#34;liturgical_play_id&#34;: self.liturgical_play_id,
+            &#34;completeness&#34;: self.completeness,
+            &#34;layer_of_addendum&#34;: self.layer_of_addendum,
+            &#34;condition_of_transmission&#34;: self.condition_of_transmission,
+            &#34;iiif_urls&#34;: self.iiif_urls
+        }
+
+
+@dataclass
+class Data:
+    &#34;&#34;&#34;
+    A class representing data of a medieval chant document.
+    &#34;&#34;&#34;
+    comments: list  # TODO: list of dicts
+    uuid: str
+    kind: str
+    children: list  # = field(init=False) #: The Input Data that is parsed by the model
+    documentType: str  #: The DocumentType attribute specifies the number of hierarchical levels
+    # of Divisions the Document has
+    elements: List[Division] = field(init=[])  #: The Division elements that are contained by the Document
+    signatures: list = field(init=[])  #: A list of signatures for the elements of the document
+    version: str = &#34;&#34;  #: to catch &#39;version&#39; attribute in *some* data files
+
+    def __post_init__(self):
+        # try:
+        self.elements = [Division(divisions[&#34;data&#34;], divisions[&#34;children&#34;], (index,)) for index, divisions in
+                         enumerate(self.children) if &#34;data&#34; in divisions and &#34;children&#34; in divisions]
+        self.signatures: List[str] = [e.signature for e in self.elements]
+
+    # except:
+    #    print(&#34;Element parsing did not work with doc: &#34;, self.uuid)
+    #    self.elements = []
+    #    self.signatures = []
+
+    @property
+    def mei(self):
+        try:
+            divisions = &#34;&#34;.join([division.mei for division in self.elements])
+            return f&#39;&lt;music&gt;&lt;body&gt;&lt;mdiv&gt;&lt;score&gt;&lt;scoreDef /&gt;&#39; \
+                   f&#39;{divisions}&#39; \
+                   f&#39;&lt;/score&gt;&lt;/mdiv&gt;&lt;/body&gt;&lt;/music&gt;&#39;
+        except AttributeError:
+            print(f&#34;Warning: Document {self.uuid} has no attribute &#39;elements&#39;. Len of children attribute: {len(self.elements)}&#34;)
+            print(self.elements)
+            return &#34;&#34;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;chant&#34;, &#34;elements&#34;: [division.json for division in self.elements]}</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="monodikit.models.document.Accidental"><code class="flex name class">
+<span>class <span class="ident">Accidental</span></span>
+<span>(</span><span>uuid: str, base: str, liquescent: str, noteType: str, octave: int, focus: bool, index: tuple)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Accidental(uuid: str, base: str, liquescent: str, noteType: str, octave: int, focus: bool, index: tuple)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass()
+class Accidental:
+    uuid: str
+    base: str
+    liquescent: str
+    noteType: str
+    octave: int
+    focus: bool
+    index: tuple
+
+    @property
+    def mei(self):
+        if self.noteType == &#34;Flat&#34;:
+            accid = &#34;f&#34;
+        elif self.noteType == &#34;Natural&#34;:
+            accid = &#34;n&#34;
+        else:
+            accid = &#34;?&#34;
+
+        return f&#39;&lt;accid ploc=&#34;{self.base}&#34; poct=&#34;{self.oct}&#34; accid=&#34;{accid}&#34;&#39;
+
+    @property
+    def volpiano(self):
+        if self.noteType == &#34;Flat&#34;:
+            if self.base == &#34;B&#34;:
+                return &#34;i&#34;
+            if self.base == &#34;E&#34; and self.octave == 4:
+                return &#34;w&#34;
+            if self.base == &#34;E&#34; and self.octave == 5:
+                return &#34;x&#34;
+        elif self.noteType == &#34;Natural&#34;:
+            if self.base == &#34;B&#34;:
+                return &#34;I&#34;
+            if self.base == &#34;E&#34; and self.octave == 4:
+                return &#34;W&#34;
+            if self.base == &#34;E&#34; and self.octave == 5:
+                return &#34;X&#34;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;accidental&#34;, &#34;pitch&#34;: f&#34;{self.base}{self.octave}&#34;}</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="monodikit.models.document.Accidental.base"><code class="name">var <span class="ident">base</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Accidental.focus"><code class="name">var <span class="ident">focus</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Accidental.index"><code class="name">var <span class="ident">index</span> : tuple</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Accidental.liquescent"><code class="name">var <span class="ident">liquescent</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Accidental.noteType"><code class="name">var <span class="ident">noteType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Accidental.octave"><code class="name">var <span class="ident">octave</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Accidental.uuid"><code class="name">var <span class="ident">uuid</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="monodikit.models.document.Accidental.json"><code class="name">var <span class="ident">json</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def json(self):
+    return {&#34;type&#34;: &#34;accidental&#34;, &#34;pitch&#34;: f&#34;{self.base}{self.octave}&#34;}</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Accidental.mei"><code class="name">var <span class="ident">mei</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mei(self):
+    if self.noteType == &#34;Flat&#34;:
+        accid = &#34;f&#34;
+    elif self.noteType == &#34;Natural&#34;:
+        accid = &#34;n&#34;
+    else:
+        accid = &#34;?&#34;
+
+    return f&#39;&lt;accid ploc=&#34;{self.base}&#34; poct=&#34;{self.oct}&#34; accid=&#34;{accid}&#34;&#39;</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Accidental.volpiano"><code class="name">var <span class="ident">volpiano</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def volpiano(self):
+    if self.noteType == &#34;Flat&#34;:
+        if self.base == &#34;B&#34;:
+            return &#34;i&#34;
+        if self.base == &#34;E&#34; and self.octave == 4:
+            return &#34;w&#34;
+        if self.base == &#34;E&#34; and self.octave == 5:
+            return &#34;x&#34;
+    elif self.noteType == &#34;Natural&#34;:
+        if self.base == &#34;B&#34;:
+            return &#34;I&#34;
+        if self.base == &#34;E&#34; and self.octave == 4:
+            return &#34;W&#34;
+        if self.base == &#34;E&#34; and self.octave == 5:
+            return &#34;X&#34;</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="monodikit.models.document.Chant"><code class="flex name class">
+<span>class <span class="ident">Chant</span></span>
+<span>(</span><span>entry_path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A class representing a document or unit of medieval chant.</p>
+<p>A document is represented by its metadata and data,
+which are loaded from JSON files located in a directory specified
+by the entry parameter.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Chant:
+    &#34;&#34;&#34;
+    A class representing a document or unit of medieval chant.
+
+    A document is represented by its metadata and data,
+    which are loaded from JSON files located in a directory specified
+    by the entry parameter.
+    &#34;&#34;&#34;
+
+    def __init__(self, entry_path):
+        self.meta = self.get_meta(entry_path)
+        data = self.get_data(entry_path)
+        if data:
+            self.data = data
+        else:
+            raise Exception(&#34;Could not load data&#34;, self.meta.id)
+        self.type = self.meta.genre  #: The type of the document, taken from the gattung1 attribute of its metadata.
+
+    @staticmethod
+    def get_meta(entry_path):
+        if glob.glob(entry_path + &#34;/meta.json&#34;):
+            with open(entry_path + &#34;/meta.json&#34;) as f:
+                metadata = json.load(f)
+                meta = Meta(**metadata)
+            return meta
+        else:
+            return
+
+    @staticmethod
+    def get_data(entry):
+        if glob.glob(entry + &#34;/data.json&#34;):
+            with open(entry + &#34;/data.json&#34;) as f:
+                data = Data(**json.load(f))
+            return data
+        else:
+            return None
+
+    @property
+    def flat_syllables(self):
+        return [syllable
+                for division in self.data.elements
+                for el in division.editorial_lines
+                for syllable in el.syllables]
+
+    @property
+    def flat_neumes(self):
+        return [neume
+                for division in self.data.elements
+                for neume in division.flat_neumes]
+
+    @property
+    def flat_neume_components(self):
+        try:
+            return [neume_component
+                    for division in self.data.elements
+                    for neume_component in division.flat_neume_components]
+        except:
+            print(&#34;Warning for Chant property flat_neume_components: &#34;
+                  &#34;data.elements is None at: &#34;, self.meta.dokumenten_id)
+            return []
+
+    @property
+    def volpiano(self):
+        return [note_component.volpiano for note_component in self.flat_neume_components]
+
+    @property
+    def pitches(self):
+        return [note_component.pitch for note_component in self.flat_neume_components]
+
+    @property
+    def flat_neume_components_by_division(self):
+        return [[neume_component
+                 for neume_component in division.flat_neume_components]
+                for division in self.data.elements]
+
+    @property
+    def mei(self):
+        try:
+            return f&#39;&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&#39; \
+                   &#39;&lt;?xml-model href=&#34;https://music-encoding.org/schema/dev/mei-Neumes.rng&#34; &#39; \
+                   &#39;type=&#34;application/xml&#34; schematypens=&#34;http://relaxng.org/ns/structure/1.0&#34;?&gt;&#39; \
+                   &#39;&lt;?xml-model href=&#34;https://music-encoding.org/schema/dev/mei-Neumes.rng&#34; &#39; \
+                   &#39;type=&#34;application/xml&#34; schematypens=&#34;http://purl.oclc.org/dsdl/schematron&#34;?&gt;&#39; \
+                   &#39;&lt;mei xmlns=&#34;http://www.music-encoding.org/ns/mei&#34;&gt;&lt;meiHead&gt;&lt;fileDesc&gt;&lt;titleStmt&gt;&#39; \
+                   &#39;&lt;title&gt;&lt;/title&gt;&lt;/titleStmt&gt;&lt;pubStmt&gt;&lt;/pubStmt&gt;&lt;/fileDesc&gt;&lt;/meiHead&gt;&#39; \
+                   f&#39;{self.data.mei}&#39; \
+                   &#39;&lt;/mei&gt;&#39;
+        except:
+            print(&#34;Warning: Could not get MEI for: &#34;, self.meta.dokumenten_id)
+            return &#34;&#34;
+
+    @property
+    def json(self):
+        return self.data.json</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="monodikit.models.genre_specific.OrdinaryChant" href="genre_specific.html#monodikit.models.genre_specific.OrdinaryChant">OrdinaryChant</a></li>
+<li><a title="monodikit.models.genre_specific.PlayPassage" href="genre_specific.html#monodikit.models.genre_specific.PlayPassage">PlayPassage</a></li>
+<li><a title="monodikit.models.genre_specific.ProperTropeComplex" href="genre_specific.html#monodikit.models.genre_specific.ProperTropeComplex">ProperTropeComplex</a></li>
+<li><a title="monodikit.models.genre_specific.Sequence" href="genre_specific.html#monodikit.models.genre_specific.Sequence">Sequence</a></li>
+<li><a title="monodikit.models.genre_specific.Song" href="genre_specific.html#monodikit.models.genre_specific.Song">Song</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="monodikit.models.document.Chant.get_data"><code class="name flex">
+<span>def <span class="ident">get_data</span></span>(<span>entry)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get_data(entry):
+    if glob.glob(entry + &#34;/data.json&#34;):
+        with open(entry + &#34;/data.json&#34;) as f:
+            data = Data(**json.load(f))
+        return data
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Chant.get_meta"><code class="name flex">
+<span>def <span class="ident">get_meta</span></span>(<span>entry_path)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get_meta(entry_path):
+    if glob.glob(entry_path + &#34;/meta.json&#34;):
+        with open(entry_path + &#34;/meta.json&#34;) as f:
+            metadata = json.load(f)
+            meta = Meta(**metadata)
+        return meta
+    else:
+        return</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="monodikit.models.document.Chant.flat_neume_components"><code class="name">var <span class="ident">flat_neume_components</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def flat_neume_components(self):
+    try:
+        return [neume_component
+                for division in self.data.elements
+                for neume_component in division.flat_neume_components]
+    except:
+        print(&#34;Warning for Chant property flat_neume_components: &#34;
+              &#34;data.elements is None at: &#34;, self.meta.dokumenten_id)
+        return []</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Chant.flat_neume_components_by_division"><code class="name">var <span class="ident">flat_neume_components_by_division</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def flat_neume_components_by_division(self):
+    return [[neume_component
+             for neume_component in division.flat_neume_components]
+            for division in self.data.elements]</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Chant.flat_neumes"><code class="name">var <span class="ident">flat_neumes</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def flat_neumes(self):
+    return [neume
+            for division in self.data.elements
+            for neume in division.flat_neumes]</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Chant.flat_syllables"><code class="name">var <span class="ident">flat_syllables</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def flat_syllables(self):
+    return [syllable
+            for division in self.data.elements
+            for el in division.editorial_lines
+            for syllable in el.syllables]</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Chant.json"><code class="name">var <span class="ident">json</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def json(self):
+    return self.data.json</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Chant.mei"><code class="name">var <span class="ident">mei</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mei(self):
+    try:
+        return f&#39;&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&#39; \
+               &#39;&lt;?xml-model href=&#34;https://music-encoding.org/schema/dev/mei-Neumes.rng&#34; &#39; \
+               &#39;type=&#34;application/xml&#34; schematypens=&#34;http://relaxng.org/ns/structure/1.0&#34;?&gt;&#39; \
+               &#39;&lt;?xml-model href=&#34;https://music-encoding.org/schema/dev/mei-Neumes.rng&#34; &#39; \
+               &#39;type=&#34;application/xml&#34; schematypens=&#34;http://purl.oclc.org/dsdl/schematron&#34;?&gt;&#39; \
+               &#39;&lt;mei xmlns=&#34;http://www.music-encoding.org/ns/mei&#34;&gt;&lt;meiHead&gt;&lt;fileDesc&gt;&lt;titleStmt&gt;&#39; \
+               &#39;&lt;title&gt;&lt;/title&gt;&lt;/titleStmt&gt;&lt;pubStmt&gt;&lt;/pubStmt&gt;&lt;/fileDesc&gt;&lt;/meiHead&gt;&#39; \
+               f&#39;{self.data.mei}&#39; \
+               &#39;&lt;/mei&gt;&#39;
+    except:
+        print(&#34;Warning: Could not get MEI for: &#34;, self.meta.dokumenten_id)
+        return &#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Chant.pitches"><code class="name">var <span class="ident">pitches</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def pitches(self):
+    return [note_component.pitch for note_component in self.flat_neume_components]</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Chant.type"><code class="name">var <span class="ident">type</span></code></dt>
+<dd>
+<div class="desc"><p>The type of the document, taken from the gattung1 attribute of its metadata.</p></div>
+</dd>
+<dt id="monodikit.models.document.Chant.volpiano"><code class="name">var <span class="ident">volpiano</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def volpiano(self):
+    return [note_component.volpiano for note_component in self.flat_neume_components]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="monodikit.models.document.Data"><code class="flex name class">
+<span>class <span class="ident">Data</span></span>
+<span>(</span><span>comments: list, uuid: str, kind: str, children: list, documentType: str, version: str = '')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A class representing data of a medieval chant document.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class Data:
+    &#34;&#34;&#34;
+    A class representing data of a medieval chant document.
+    &#34;&#34;&#34;
+    comments: list  # TODO: list of dicts
+    uuid: str
+    kind: str
+    children: list  # = field(init=False) #: The Input Data that is parsed by the model
+    documentType: str  #: The DocumentType attribute specifies the number of hierarchical levels
+    # of Divisions the Document has
+    elements: List[Division] = field(init=[])  #: The Division elements that are contained by the Document
+    signatures: list = field(init=[])  #: A list of signatures for the elements of the document
+    version: str = &#34;&#34;  #: to catch &#39;version&#39; attribute in *some* data files
+
+    def __post_init__(self):
+        # try:
+        self.elements = [Division(divisions[&#34;data&#34;], divisions[&#34;children&#34;], (index,)) for index, divisions in
+                         enumerate(self.children) if &#34;data&#34; in divisions and &#34;children&#34; in divisions]
+        self.signatures: List[str] = [e.signature for e in self.elements]
+
+    # except:
+    #    print(&#34;Element parsing did not work with doc: &#34;, self.uuid)
+    #    self.elements = []
+    #    self.signatures = []
+
+    @property
+    def mei(self):
+        try:
+            divisions = &#34;&#34;.join([division.mei for division in self.elements])
+            return f&#39;&lt;music&gt;&lt;body&gt;&lt;mdiv&gt;&lt;score&gt;&lt;scoreDef /&gt;&#39; \
+                   f&#39;{divisions}&#39; \
+                   f&#39;&lt;/score&gt;&lt;/mdiv&gt;&lt;/body&gt;&lt;/music&gt;&#39;
+        except AttributeError:
+            print(f&#34;Warning: Document {self.uuid} has no attribute &#39;elements&#39;. Len of children attribute: {len(self.elements)}&#34;)
+            print(self.elements)
+            return &#34;&#34;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;chant&#34;, &#34;elements&#34;: [division.json for division in self.elements]}</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="monodikit.models.document.Data.children"><code class="name">var <span class="ident">children</span> : list</code></dt>
+<dd>
+<div class="desc"><p>The Input Data that is parsed by the model</p></div>
+</dd>
+<dt id="monodikit.models.document.Data.comments"><code class="name">var <span class="ident">comments</span> : list</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Data.documentType"><code class="name">var <span class="ident">documentType</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The DocumentType attribute specifies the number of hierarchical levels</p></div>
+</dd>
+<dt id="monodikit.models.document.Data.elements"><code class="name">var <span class="ident">elements</span> : List[<a title="monodikit.models.document.Division" href="#monodikit.models.document.Division">Division</a>]</code></dt>
+<dd>
+<div class="desc"><p>The Division elements that are contained by the Document</p></div>
+</dd>
+<dt id="monodikit.models.document.Data.kind"><code class="name">var <span class="ident">kind</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Data.signatures"><code class="name">var <span class="ident">signatures</span> : list</code></dt>
+<dd>
+<div class="desc"><p>A list of signatures for the elements of the document</p></div>
+</dd>
+<dt id="monodikit.models.document.Data.uuid"><code class="name">var <span class="ident">uuid</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Data.version"><code class="name">var <span class="ident">version</span> : str</code></dt>
+<dd>
+<div class="desc"><p>to catch 'version' attribute in <em>some</em> data files</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="monodikit.models.document.Data.json"><code class="name">var <span class="ident">json</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def json(self):
+    return {&#34;type&#34;: &#34;chant&#34;, &#34;elements&#34;: [division.json for division in self.elements]}</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Data.mei"><code class="name">var <span class="ident">mei</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mei(self):
+    try:
+        divisions = &#34;&#34;.join([division.mei for division in self.elements])
+        return f&#39;&lt;music&gt;&lt;body&gt;&lt;mdiv&gt;&lt;score&gt;&lt;scoreDef /&gt;&#39; \
+               f&#39;{divisions}&#39; \
+               f&#39;&lt;/score&gt;&lt;/mdiv&gt;&lt;/body&gt;&lt;/music&gt;&#39;
+    except AttributeError:
+        print(f&#34;Warning: Document {self.uuid} has no attribute &#39;elements&#39;. Len of children attribute: {len(self.elements)}&#34;)
+        print(self.elements)
+        return &#34;&#34;</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="monodikit.models.document.Division"><code class="flex name class">
+<span>class <span class="ident">Division</span></span>
+<span>(</span><span>data: list, children: list, index: tuple)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A class representing a division of a medieval chant document.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class Division:
+    &#34;&#34;&#34;
+    A class representing a division of a medieval chant document.
+    &#34;&#34;&#34;
+    data: list  #: A list of data elements for the division.
+    children: list  #: A list of child elements for the division.
+    index: tuple
+
+    def __post_init__(self):
+        self.elements = []
+        self.editorial_lines = []
+        children_wo_paratext = self.filter_paratexts(self.children)
+        if &#34;data&#34; in [keys for child in children_wo_paratext for keys in child.keys()]:
+
+            self.interdivision = True
+            self.elements = [Division(div[&#34;data&#34;], div[&#34;children&#34;], self.index + (index,)) for index, div in
+                             enumerate(children_wo_paratext)]
+            self.editorial_lines: list = self.get_flat_editorial_lines()
+        else:
+            self.interdivision = False
+            self.elements = []
+            self.editorial_lines: list = self.get_editorial_lines()  #: A list of `Syllable` objects representing the syllables in the division.
+
+            # print(&#34;syllables&#34;, self.syllables)
+
+        self.signature: str = self.get_signature()  #: The signature of the division, if present.
+        self.status: str = self.get_status()  #: The status of the division, if present.
+
+    def get_signature(self):
+        division_metadata = {d[&#34;name&#34;]: d[&#34;data&#34;] for d in self.data}
+        if &#34;Signatur&#34; in division_metadata.keys():
+            return division_metadata[&#34;Signatur&#34;]
+        else:
+            return None
+
+    def get_status(self):
+        dd = {d[&#34;name&#34;]: d[&#34;data&#34;] for d in self.data}
+        if &#34;Status&#34; in dd.keys():
+            return dd[&#34;Status&#34;]
+        else:
+            return None
+
+    def filter_paratexts(self, children):
+        return [child for child in children if child[&#34;kind&#34;] != &#34;ParatextContainer&#34;]
+
+    def get_editorial_lines(self):
+        editorial_lines = []
+        for index, child in enumerate(self.filter_paratexts(self.children)):
+            try:
+                editorial_lines.append(EditorialLine(**child, index=self.index + (index,)))
+            except:
+                print(&#34;Warning: Expected editorial line but got: &#34;, child)
+        return editorial_lines
+
+    def get_flat_editorial_lines(self):
+        if len(self.elements):
+            if self.elements[0].interdivision:
+                return [editorial_line for division in self.elements for editorial_line in
+                        division.get_flat_editorial_lines()]
+            else:
+                return [editorial_line for division in self.elements for editorial_line in division.editorial_lines]
+        else:
+            return []
+
+    @property
+    def flat_syllables(self):
+        &#34;&#34;&#34; Get a list of syllables within a division. &#34;&#34;&#34;
+        return [syllable
+                for editorial_line in self.editorial_lines
+                for syllable in editorial_line.syllables]
+
+    @property
+    def flat_neumes(self):
+        &#34;&#34;&#34; Get a list of neumes within a division. &#34;&#34;&#34;
+        return [neume
+                for editorial_line in self.editorial_lines
+                for syllable in editorial_line.syllables
+                for neume in syllable.neumes]
+
+    @property
+    def flat_neume_components(self):
+        &#34;&#34;&#34; Get a list of neume components within a division. &#34;&#34;&#34;
+        return [note_component
+                for editorial_line in self.editorial_lines
+                for syllable in editorial_line.syllables
+                for neume in syllable.neumes
+                for note_component in neume.neume_content]
+        # if c[&#34;kind&#34;] == &#34;Syllable&#34;
+
+
+    @property
+    def mei(self):
+        if len(self.syllables) == 0:
+            return &#34;&#34;
+        syllables = &#34;&#34;.join([syllable.mei for syllable in self.syllables])
+        return f&#34;&lt;section&gt;&lt;staff&gt;&lt;layer&gt;{syllables}&lt;/layer&gt;&lt;/staff&gt;&lt;/section&gt;&#34;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;section&#34;, &#34;elements&#34;: [syllable.json for syllable in self.syllables]}
+
+    # def get_linechange(self):
+    #     return [ Syllable(c) for child in self.children for d in child[&#34;children&#34;] for c in d[&#34;children&#34;] ]</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="monodikit.models.genre_specific.PrimeChantElement" href="genre_specific.html#monodikit.models.genre_specific.PrimeChantElement">PrimeChantElement</a></li>
+<li><a title="monodikit.models.genre_specific.TropeElement" href="genre_specific.html#monodikit.models.genre_specific.TropeElement">TropeElement</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="monodikit.models.document.Division.children"><code class="name">var <span class="ident">children</span> : list</code></dt>
+<dd>
+<div class="desc"><p>A list of child elements for the division.</p></div>
+</dd>
+<dt id="monodikit.models.document.Division.data"><code class="name">var <span class="ident">data</span> : list</code></dt>
+<dd>
+<div class="desc"><p>A list of data elements for the division.</p></div>
+</dd>
+<dt id="monodikit.models.document.Division.index"><code class="name">var <span class="ident">index</span> : tuple</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="monodikit.models.document.Division.flat_neume_components"><code class="name">var <span class="ident">flat_neume_components</span></code></dt>
+<dd>
+<div class="desc"><p>Get a list of neume components within a division.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def flat_neume_components(self):
+    &#34;&#34;&#34; Get a list of neume components within a division. &#34;&#34;&#34;
+    return [note_component
+            for editorial_line in self.editorial_lines
+            for syllable in editorial_line.syllables
+            for neume in syllable.neumes
+            for note_component in neume.neume_content]
+    # if c[&#34;kind&#34;] == &#34;Syllable&#34;</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Division.flat_neumes"><code class="name">var <span class="ident">flat_neumes</span></code></dt>
+<dd>
+<div class="desc"><p>Get a list of neumes within a division.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def flat_neumes(self):
+    &#34;&#34;&#34; Get a list of neumes within a division. &#34;&#34;&#34;
+    return [neume
+            for editorial_line in self.editorial_lines
+            for syllable in editorial_line.syllables
+            for neume in syllable.neumes]</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Division.flat_syllables"><code class="name">var <span class="ident">flat_syllables</span></code></dt>
+<dd>
+<div class="desc"><p>Get a list of syllables within a division.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def flat_syllables(self):
+    &#34;&#34;&#34; Get a list of syllables within a division. &#34;&#34;&#34;
+    return [syllable
+            for editorial_line in self.editorial_lines
+            for syllable in editorial_line.syllables]</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Division.json"><code class="name">var <span class="ident">json</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def json(self):
+    return {&#34;type&#34;: &#34;section&#34;, &#34;elements&#34;: [syllable.json for syllable in self.syllables]}</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Division.mei"><code class="name">var <span class="ident">mei</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mei(self):
+    if len(self.syllables) == 0:
+        return &#34;&#34;
+    syllables = &#34;&#34;.join([syllable.mei for syllable in self.syllables])
+    return f&#34;&lt;section&gt;&lt;staff&gt;&lt;layer&gt;{syllables}&lt;/layer&gt;&lt;/staff&gt;&lt;/section&gt;&#34;</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="monodikit.models.document.Division.filter_paratexts"><code class="name flex">
+<span>def <span class="ident">filter_paratexts</span></span>(<span>self, children)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def filter_paratexts(self, children):
+    return [child for child in children if child[&#34;kind&#34;] != &#34;ParatextContainer&#34;]</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Division.get_editorial_lines"><code class="name flex">
+<span>def <span class="ident">get_editorial_lines</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_editorial_lines(self):
+    editorial_lines = []
+    for index, child in enumerate(self.filter_paratexts(self.children)):
+        try:
+            editorial_lines.append(EditorialLine(**child, index=self.index + (index,)))
+        except:
+            print(&#34;Warning: Expected editorial line but got: &#34;, child)
+    return editorial_lines</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Division.get_flat_editorial_lines"><code class="name flex">
+<span>def <span class="ident">get_flat_editorial_lines</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_flat_editorial_lines(self):
+    if len(self.elements):
+        if self.elements[0].interdivision:
+            return [editorial_line for division in self.elements for editorial_line in
+                    division.get_flat_editorial_lines()]
+        else:
+            return [editorial_line for division in self.elements for editorial_line in division.editorial_lines]
+    else:
+        return []</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Division.get_signature"><code class="name flex">
+<span>def <span class="ident">get_signature</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_signature(self):
+    division_metadata = {d[&#34;name&#34;]: d[&#34;data&#34;] for d in self.data}
+    if &#34;Signatur&#34; in division_metadata.keys():
+        return division_metadata[&#34;Signatur&#34;]
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Division.get_status"><code class="name flex">
+<span>def <span class="ident">get_status</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_status(self):
+    dd = {d[&#34;name&#34;]: d[&#34;data&#34;] for d in self.data}
+    if &#34;Status&#34; in dd.keys():
+        return dd[&#34;Status&#34;]
+    else:
+        return None</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="monodikit.models.document.EditorialLine"><code class="flex name class">
+<span>class <span class="ident">EditorialLine</span></span>
+<span>(</span><span>uuid: str, kind: str, children: list, index: tuple)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A class representing a Editorial Line associated with the textual phrases.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class EditorialLine:
+    &#34;&#34;&#34;
+    A class representing a Editorial Line associated with the textual phrases.
+    &#34;&#34;&#34;
+    uuid: str
+    kind: str
+    children: list
+    index: tuple
+
+    def __post_init__(self):
+        self.syllables = self.get_syllables()
+
+    def get_syllables(self):
+        return [Syllable(**div, index=self.index + (index,))
+                for index, div in enumerate(self.children)
+                ]</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="monodikit.models.document.EditorialLine.children"><code class="name">var <span class="ident">children</span> : list</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.EditorialLine.index"><code class="name">var <span class="ident">index</span> : tuple</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.EditorialLine.kind"><code class="name">var <span class="ident">kind</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.EditorialLine.uuid"><code class="name">var <span class="ident">uuid</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="monodikit.models.document.EditorialLine.get_syllables"><code class="name flex">
+<span>def <span class="ident">get_syllables</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_syllables(self):
+    return [Syllable(**div, index=self.index + (index,))
+            for index, div in enumerate(self.children)
+            ]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="monodikit.models.document.EmptyNeumeComponent"><code class="flex name class">
+<span>class <span class="ident">EmptyNeumeComponent</span></span>
+<span>(</span><span>uuid: str, base: str, liquescent: bool, noteType: str, octave: int, focus: bool, index: tuple)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>EmptyNeumeComponent(uuid: str, base: str, liquescent: bool, noteType: str, octave: int, focus: bool, index: tuple)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class EmptyNeumeComponent(NeumeComponent):
+    @property
+    def pitch(self):
+        return &#34;Empty&#34;
+
+    @property
+    def mei(self):
+        return &#34;&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="monodikit.models.document.NeumeComponent" href="#monodikit.models.document.NeumeComponent">NeumeComponent</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="monodikit.models.document.EmptyNeumeComponent.mei"><code class="name">var <span class="ident">mei</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mei(self):
+    return &#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.EmptyNeumeComponent.pitch"><code class="name">var <span class="ident">pitch</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def pitch(self):
+    return &#34;Empty&#34;</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="monodikit.models.document.Meta"><code class="flex name class">
+<span>class <span class="ident">Meta</span></span>
+<span>(</span><span>id, quelle_id, dokumenten_id, gattung1, gattung2, festtag, feier, textinitium, bibliographischerverweis, druckausgabe, zeilenstart, foliostart, kommentar, editionsstatus, additionalData)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Meta:
+
+    def __init__(self, id, quelle_id, dokumenten_id, gattung1, gattung2, festtag, feier, textinitium,
+                 bibliographischerverweis, druckausgabe, zeilenstart, foliostart, kommentar, editionsstatus,
+                 additionalData):
+        self.uuid = id,
+        self.source_id = quelle_id
+        self.document_id = dokumenten_id
+        self.genre = gattung1
+        self.subgenre = gattung2
+        self.feast_day = festtag
+        self.feast_time = feier
+        self.initial_text = textinitium
+
+        self.initial_folio = foliostart
+        self.initial_line = zeilenstart
+        self.ending_folio = additionalData.get(&#34;Endseite&#34;, &#34;&#34;)
+        self.ending_line = additionalData.get(&#34;Endzeile&#34;, &#34;&#34;)
+
+        self.bibliographical_reference = bibliographischerverweis
+        self.cm_volume = druckausgabe
+
+        self.editorial_comment = kommentar
+        self.melody_number = additionalData.get(&#34;Melodiennummer_Katalog&#34;, &#34;&#34;)
+        self.melodyname_standardized = additionalData.get(&#34;Melodie_Standard&#34;, &#34;&#34;)
+        self.melodyname_diplomatic = additionalData.get(&#34;Melodie_Quelle&#34;, &#34;&#34;)
+        self.editor = additionalData.get(&#34;Editor&#34;, &#34;&#34;)
+        self.related_chant = additionalData.get(&#34;Bezugsgesang&#34;, &#34;&#34;)
+        self.liturgical_play_id = additionalData.get(&#34;Referenz_auf_Spiel&#34;, &#34;&#34;)
+        self.completeness = additionalData.get(&#34;Zusatz_zu_Textinitium&#34;, &#34;&#34;)
+        self.layer_of_addendum = additionalData.get(&#34;Nachtragsschicht&#34;, &#34;&#34;)
+        self.condition_of_transmission = additionalData.get(&#34;\u00dcberlieferungszustand&#34;, &#34;&#34;)
+        self.iiif_urls = additionalData.get(&#34;iiifs&#34;, &#34;&#34;)
+
+    @property
+    def as_record(self):
+        return {
+            &#34;uuid&#34;: self.uuid,
+            &#34;source_id&#34;: self.source_id,
+            &#34;document_id&#34;: self.document_id,
+            &#34;genre&#34;: self.genre,
+            &#34;subgenre&#34;: self.subgenre,
+            &#34;feast_day&#34;: self.feast_day,
+            &#34;feast_time&#34;: self.feast_time,
+            &#34;initial_text&#34;: self.initial_text,
+
+            &#34;initial_folio&#34;: self.initial_folio,
+            &#34;initial_line&#34;: self.initial_line,
+            &#34;ending_folio&#34;: self.ending_folio,
+            &#34;ending_line&#34;: self.ending_line,
+
+            &#34;bibliographical_reference&#34;: self.bibliographical_reference,
+            &#34;cm_volume&#34;: self.cm_volume,
+
+            &#34;editorial_comment&#34;: self.editorial_comment,
+            &#34;melody_number&#34;: self.melody_number,
+            &#34;melodyname_standardized&#34;: self.melodyname_standardized,
+            &#34;melodyname_diplomatic&#34;: self.melodyname_diplomatic,
+            &#34;editor&#34;: self.editor,
+            &#34;related_chant&#34;: self.related_chant,
+            &#34;liturgical_play_id&#34;: self.liturgical_play_id,
+            &#34;completeness&#34;: self.completeness,
+            &#34;layer_of_addendum&#34;: self.layer_of_addendum,
+            &#34;condition_of_transmission&#34;: self.condition_of_transmission,
+            &#34;iiif_urls&#34;: self.iiif_urls
+        }</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="monodikit.models.document.Meta.as_record"><code class="name">var <span class="ident">as_record</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def as_record(self):
+    return {
+        &#34;uuid&#34;: self.uuid,
+        &#34;source_id&#34;: self.source_id,
+        &#34;document_id&#34;: self.document_id,
+        &#34;genre&#34;: self.genre,
+        &#34;subgenre&#34;: self.subgenre,
+        &#34;feast_day&#34;: self.feast_day,
+        &#34;feast_time&#34;: self.feast_time,
+        &#34;initial_text&#34;: self.initial_text,
+
+        &#34;initial_folio&#34;: self.initial_folio,
+        &#34;initial_line&#34;: self.initial_line,
+        &#34;ending_folio&#34;: self.ending_folio,
+        &#34;ending_line&#34;: self.ending_line,
+
+        &#34;bibliographical_reference&#34;: self.bibliographical_reference,
+        &#34;cm_volume&#34;: self.cm_volume,
+
+        &#34;editorial_comment&#34;: self.editorial_comment,
+        &#34;melody_number&#34;: self.melody_number,
+        &#34;melodyname_standardized&#34;: self.melodyname_standardized,
+        &#34;melodyname_diplomatic&#34;: self.melodyname_diplomatic,
+        &#34;editor&#34;: self.editor,
+        &#34;related_chant&#34;: self.related_chant,
+        &#34;liturgical_play_id&#34;: self.liturgical_play_id,
+        &#34;completeness&#34;: self.completeness,
+        &#34;layer_of_addendum&#34;: self.layer_of_addendum,
+        &#34;condition_of_transmission&#34;: self.condition_of_transmission,
+        &#34;iiif_urls&#34;: self.iiif_urls
+    }</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="monodikit.models.document.Neume"><code class="flex name class">
+<span>class <span class="ident">Neume</span></span>
+<span>(</span><span>spaced_element, index)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A class representing a neume loosely following the MEI specification.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Neume:
+    &#34;&#34;&#34;
+    A class representing a neume loosely following the MEI specification.
+
+    &#34;&#34;&#34;
+
+    def __init__(self, spaced_element, index):  #: Takes a dictionary representing the spaced element of the neume.
+        self.index = index
+        self.neume_content = self.get_neume_content(spaced_element)  #: A list of `NeumeComponent` objects.
+        self.neume_components = [element for element in self.neume_content if type(element) == NeumeComponent]
+        self.accidentals = [element for element in self.neume_content if type(element) == Accidental]
+
+    &#34;&#34;&#34;Parses NeumeComponents and Accidentals within a Neume object.&#34;&#34;&#34;
+    def parse_neume_content(self, element, index):
+        try:
+            if element[&#34;noteType&#34;] == &#34;Normal&#34;:
+                neume = NeumeComponent(**element, index=self.index + (index,))
+                low_peak = NeumeComponent(uuid=&#34;&#34;, base=&#34;G&#34;, liquescent=False, noteType=&#34;Normal&#34;, octave=3, focus=False,
+                                          index=self.index + (0,))
+                comment_note = NeumeComponent(uuid=&#34;&#34;, base=&#34;A&#34;, liquescent=True, noteType=&#34;Normal&#34;, octave=5,
+                                              focus=False, index=self.index + (0,))
+                if neume &lt; low_peak or neume == comment_note:
+                    # return EmptyNeumeComponent(**element, index=self.index + (index,))
+                    return None
+                else:
+                    return neume
+            elif element[&#34;noteType&#34;] == &#34;Flat&#34; or element.noteType == &#34;Natural&#34;:
+                return Accidental(**element, index=self.index + (index,))
+        except AttributeError:
+            return None
+
+    &#34;&#34;&#34;Wraps whole content up into a list&#34;&#34;&#34;
+    def get_neume_content(self, spaced_element):
+        return [neume for neume in [self.parse_neume_content(connected_neume_component, (index1 + index2))
+                                    for index2, neume_component in enumerate(spaced_element[&#34;nonSpaced&#34;])
+                                    for index1, connected_neume_component in enumerate(neume_component[&#34;grouped&#34;])] if
+                neume is not None]
+
+    @property
+    def mei(self):
+        neume_components = &#34;&#34;.join([nc.mei for nc in self.neume_components])
+        if len(self.accidentals):
+            accidentals = &#34;&#34;.join([accid.mei for accid in self.accidentals])
+        else:
+            accidentals = &#34;&#34;
+        return f&#34;{accidentals}&lt;neume&gt;{neume_components}&lt;/neume&gt;&#34;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;neume&#34;, &#34;elements&#34;: [neume_components.json for neume_components in self.neume_content]}</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="monodikit.models.document.Neume.json"><code class="name">var <span class="ident">json</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def json(self):
+    return {&#34;type&#34;: &#34;neume&#34;, &#34;elements&#34;: [neume_components.json for neume_components in self.neume_content]}</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Neume.mei"><code class="name">var <span class="ident">mei</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mei(self):
+    neume_components = &#34;&#34;.join([nc.mei for nc in self.neume_components])
+    if len(self.accidentals):
+        accidentals = &#34;&#34;.join([accid.mei for accid in self.accidentals])
+    else:
+        accidentals = &#34;&#34;
+    return f&#34;{accidentals}&lt;neume&gt;{neume_components}&lt;/neume&gt;&#34;</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Neume.neume_content"><code class="name">var <span class="ident">neume_content</span></code></dt>
+<dd>
+<div class="desc"><p>A list of <code><a title="monodikit.models.document.NeumeComponent" href="#monodikit.models.document.NeumeComponent">NeumeComponent</a></code> objects.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="monodikit.models.document.Neume.get_neume_content"><code class="name flex">
+<span>def <span class="ident">get_neume_content</span></span>(<span>self, spaced_element)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_neume_content(self, spaced_element):
+    return [neume for neume in [self.parse_neume_content(connected_neume_component, (index1 + index2))
+                                for index2, neume_component in enumerate(spaced_element[&#34;nonSpaced&#34;])
+                                for index1, connected_neume_component in enumerate(neume_component[&#34;grouped&#34;])] if
+            neume is not None]</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Neume.parse_neume_content"><code class="name flex">
+<span>def <span class="ident">parse_neume_content</span></span>(<span>self, element, index)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse_neume_content(self, element, index):
+    try:
+        if element[&#34;noteType&#34;] == &#34;Normal&#34;:
+            neume = NeumeComponent(**element, index=self.index + (index,))
+            low_peak = NeumeComponent(uuid=&#34;&#34;, base=&#34;G&#34;, liquescent=False, noteType=&#34;Normal&#34;, octave=3, focus=False,
+                                      index=self.index + (0,))
+            comment_note = NeumeComponent(uuid=&#34;&#34;, base=&#34;A&#34;, liquescent=True, noteType=&#34;Normal&#34;, octave=5,
+                                          focus=False, index=self.index + (0,))
+            if neume &lt; low_peak or neume == comment_note:
+                # return EmptyNeumeComponent(**element, index=self.index + (index,))
+                return None
+            else:
+                return neume
+        elif element[&#34;noteType&#34;] == &#34;Flat&#34; or element.noteType == &#34;Natural&#34;:
+            return Accidental(**element, index=self.index + (index,))
+    except AttributeError:
+        return None</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent"><code class="flex name class">
+<span>class <span class="ident">NeumeComponent</span></span>
+<span>(</span><span>uuid: str, base: str, liquescent: bool, noteType: str, octave: int, focus: bool, index: tuple)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>NeumeComponent(uuid: str, base: str, liquescent: bool, noteType: str, octave: int, focus: bool, index: tuple)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class NeumeComponent:
+    uuid: str
+    base: str
+    liquescent: bool
+    noteType: str
+    octave: int
+    focus: bool
+    index: tuple
+    note_to_num = {&#39;C&#39;: 1, &#39;D&#39;: 2, &#39;E&#39;: 3, &#39;F&#39;: 4, &#39;G&#39;: 5, &#39;A&#39;: 6, &#39;B&#39;: 7}
+    volpiano_matching = {&#34;F3&#34;: &#34;8&#34;, &#34;G3&#34;: &#34;9&#34;, &#34;A3&#34;: &#34;a&#34;, &#34;B3&#34;: &#34;b&#34;, &#34;C4&#34;: &#34;c&#34;, &#34;D4&#34;: &#34;d&#34;, &#34;E4&#34;: &#34;e&#34;, &#34;F4&#34;: &#34;f&#34;,
+                         &#34;G4&#34;: &#34;g&#34;, &#34;A4&#34;: &#34;h&#34;, &#34;B4&#34;: &#34;j&#34;, &#34;C5&#34;: &#34;k&#34;, &#34;D5&#34;: &#34;l&#34;, &#34;E5&#34;: &#34;m&#34;, &#34;F5&#34;: &#34;n&#34;, &#34;G5&#34;: &#34;o&#34;,
+                         &#34;A5&#34;: &#34;p&#34;, &#34;B5&#34;: &#34;q&#34;, &#34;C6&#34;: &#34;r&#34;, &#34;D6&#34;: &#34;s&#34;}
+
+    def calculate_number(self):
+        return (self.octave * 7) + (self.note_to_num[self.base])
+
+    def __lt__(self, other):
+        return self.calculate_number() &lt; other.calculate_number()
+
+    def __gt__(self, other):
+        return self.calculate_number() &gt; other.calculate_number()
+
+    def __le__(self, other):
+        return self.calculate_number() &lt;= other.calculate_number()
+
+    def __ge__(self, other):
+        return self.calculate_number() &gt;= other.calculate_number()
+
+    def __eq__(self, other):
+        return self.calculate_number() == other.calculate_number() and self.liquescent == other.liquescent
+
+    @property
+    def pitch(self):
+        return self.base + str(self.octave)
+
+    @property
+    def volpiano(self):
+        return self.volpiano_matching[self.pitch]
+
+    @property
+    def mei(self):
+        if self.index[-1] == 0:
+            con = &#34;&#34;
+        else:
+            con = &#39; con=&#34;g&#34;&#39;
+
+        if self.liquescent:
+            return f&#39;&lt;nc pname=&#34;{self.base.lower()}&#34; oct=&#34;{self.octave}&#34;{con}&gt;&lt;liquescent/&gt;&lt;/nc&gt;&#39;
+        elif self.noteType != &#34;Normal&#34;:
+            return f&#39;&lt;nc pname=&#34;{self.base.lower()}&#34; oct=&#34;{self.octave}&#34;{con}&gt;&lt;{self.noteType}/&gt;&lt;/nc&gt;&#39;
+        else:
+            return f&#39;&lt;nc pname=&#34;{self.base.lower()}&#34; oct=&#34;{self.octave}&#34;{con}/&gt;&#39;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;note&#34;, &#34;pitch&#34;: f&#34;{self.base}{self.octave}&#34;}
+
+    @property
+    def pitch(self):
+        return f&#34;{self.base}{self.octave}&#34;
+
+    def __str__(self):
+        return f&#34;&lt;NeumeComponent base={self.base}, oct={self.octave}&gt;&#34;
+
+    def __repr__(self):
+        return f&#34;&lt;NeumeComponent base={self.base}, oct={self.octave}&gt;&#34;</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="monodikit.models.document.EmptyNeumeComponent" href="#monodikit.models.document.EmptyNeumeComponent">EmptyNeumeComponent</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="monodikit.models.document.NeumeComponent.base"><code class="name">var <span class="ident">base</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent.focus"><code class="name">var <span class="ident">focus</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent.index"><code class="name">var <span class="ident">index</span> : tuple</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent.liquescent"><code class="name">var <span class="ident">liquescent</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent.noteType"><code class="name">var <span class="ident">noteType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent.note_to_num"><code class="name">var <span class="ident">note_to_num</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent.octave"><code class="name">var <span class="ident">octave</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent.uuid"><code class="name">var <span class="ident">uuid</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent.volpiano_matching"><code class="name">var <span class="ident">volpiano_matching</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="monodikit.models.document.NeumeComponent.json"><code class="name">var <span class="ident">json</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def json(self):
+    return {&#34;type&#34;: &#34;note&#34;, &#34;pitch&#34;: f&#34;{self.base}{self.octave}&#34;}</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent.mei"><code class="name">var <span class="ident">mei</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mei(self):
+    if self.index[-1] == 0:
+        con = &#34;&#34;
+    else:
+        con = &#39; con=&#34;g&#34;&#39;
+
+    if self.liquescent:
+        return f&#39;&lt;nc pname=&#34;{self.base.lower()}&#34; oct=&#34;{self.octave}&#34;{con}&gt;&lt;liquescent/&gt;&lt;/nc&gt;&#39;
+    elif self.noteType != &#34;Normal&#34;:
+        return f&#39;&lt;nc pname=&#34;{self.base.lower()}&#34; oct=&#34;{self.octave}&#34;{con}&gt;&lt;{self.noteType}/&gt;&lt;/nc&gt;&#39;
+    else:
+        return f&#39;&lt;nc pname=&#34;{self.base.lower()}&#34; oct=&#34;{self.octave}&#34;{con}/&gt;&#39;</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent.pitch"><code class="name">var <span class="ident">pitch</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def pitch(self):
+    return f&#34;{self.base}{self.octave}&#34;</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.NeumeComponent.volpiano"><code class="name">var <span class="ident">volpiano</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def volpiano(self):
+    return self.volpiano_matching[self.pitch]</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="monodikit.models.document.NeumeComponent.calculate_number"><code class="name flex">
+<span>def <span class="ident">calculate_number</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calculate_number(self):
+    return (self.octave * 7) + (self.note_to_num[self.base])</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="monodikit.models.document.Syllable"><code class="flex name class">
+<span>class <span class="ident">Syllable</span></span>
+<span>(</span><span>uuid: str, kind: str, index: tuple, text: str = '', syllableType: str = '', notes: dict = &lt;factory&gt;, endsWord: bool = False, focus: bool = False, hasNotes: bool = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Syllable(uuid: str, kind: str, index: tuple, text: str = '', syllableType: str = '', notes: dict = <factory>, endsWord: bool = False, focus: bool = False, hasNotes: bool = None)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class Syllable:
+    uuid: str
+    kind: str
+    index: tuple
+    text: str = &#34;&#34;
+    syllableType: str = &#34;&#34;
+    notes: dict = field(default_factory=dict)  # Notes good terminology? includes groups etc.
+    endsWord: bool = False
+    focus: bool = False
+    hasNotes: bool = None
+    neumes: list = field(init=False)  # How to name elements / notes? notes is now input, elements the
+
+    # processed Notes instance
+    def __post_init__(self):
+        if self.syllableType == &#34;Normal&#34;:
+            self.neumes = self.get_neumes(self.notes)
+        else:
+            self.neumes = []
+
+    def get_neumes(self, notes):
+        if &#34;spaced&#34; not in notes:
+            return []
+        return [Neume(neume, self.index + (index,)) for index, neume in enumerate(notes[&#34;spaced&#34;])]
+
+    @property
+    def mei(self):
+        neumes = &#34;&#34;.join([neume.mei for neume in self.neumes])
+        return f&#34;&lt;syllable&gt;&lt;syl&gt;{escape(self.text)}&lt;/syl&gt;{neumes}&lt;/syllable&gt;&#34;
+
+    @property
+    def json(self):
+        return {&#34;type&#34;: &#34;syllable&#34;, &#34;lyric&#34;: self.text, &#34;elements&#34;: [neume.json for neume in self.neumes]}</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="monodikit.models.document.Syllable.endsWord"><code class="name">var <span class="ident">endsWord</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Syllable.focus"><code class="name">var <span class="ident">focus</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Syllable.hasNotes"><code class="name">var <span class="ident">hasNotes</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Syllable.index"><code class="name">var <span class="ident">index</span> : tuple</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Syllable.kind"><code class="name">var <span class="ident">kind</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Syllable.neumes"><code class="name">var <span class="ident">neumes</span> : list</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Syllable.notes"><code class="name">var <span class="ident">notes</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Syllable.syllableType"><code class="name">var <span class="ident">syllableType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Syllable.text"><code class="name">var <span class="ident">text</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="monodikit.models.document.Syllable.uuid"><code class="name">var <span class="ident">uuid</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="monodikit.models.document.Syllable.json"><code class="name">var <span class="ident">json</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def json(self):
+    return {&#34;type&#34;: &#34;syllable&#34;, &#34;lyric&#34;: self.text, &#34;elements&#34;: [neume.json for neume in self.neumes]}</code></pre>
+</details>
+</dd>
+<dt id="monodikit.models.document.Syllable.mei"><code class="name">var <span class="ident">mei</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mei(self):
+    neumes = &#34;&#34;.join([neume.mei for neume in self.neumes])
+    return f&#34;&lt;syllable&gt;&lt;syl&gt;{escape(self.text)}&lt;/syl&gt;{neumes}&lt;/syllable&gt;&#34;</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="monodikit.models.document.Syllable.get_neumes"><code class="name flex">
+<span>def <span class="ident">get_neumes</span></span>(<span>self, notes)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_neumes(self, notes):
+    if &#34;spaced&#34; not in notes:
+        return []
+    return [Neume(neume, self.index + (index,)) for index, neume in enumerate(notes[&#34;spaced&#34;])]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="monodikit.models" href="index.html">monodikit.models</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="monodikit.models.document.Accidental" href="#monodikit.models.document.Accidental">Accidental</a></code></h4>
+<ul class="two-column">
+<li><code><a title="monodikit.models.document.Accidental.base" href="#monodikit.models.document.Accidental.base">base</a></code></li>
+<li><code><a title="monodikit.models.document.Accidental.focus" href="#monodikit.models.document.Accidental.focus">focus</a></code></li>
+<li><code><a title="monodikit.models.document.Accidental.index" href="#monodikit.models.document.Accidental.index">index</a></code></li>
+<li><code><a title="monodikit.models.document.Accidental.json" href="#monodikit.models.document.Accidental.json">json</a></code></li>
+<li><code><a title="monodikit.models.document.Accidental.liquescent" href="#monodikit.models.document.Accidental.liquescent">liquescent</a></code></li>
+<li><code><a title="monodikit.models.document.Accidental.mei" href="#monodikit.models.document.Accidental.mei">mei</a></code></li>
+<li><code><a title="monodikit.models.document.Accidental.noteType" href="#monodikit.models.document.Accidental.noteType">noteType</a></code></li>
+<li><code><a title="monodikit.models.document.Accidental.octave" href="#monodikit.models.document.Accidental.octave">octave</a></code></li>
+<li><code><a title="monodikit.models.document.Accidental.uuid" href="#monodikit.models.document.Accidental.uuid">uuid</a></code></li>
+<li><code><a title="monodikit.models.document.Accidental.volpiano" href="#monodikit.models.document.Accidental.volpiano">volpiano</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="monodikit.models.document.Chant" href="#monodikit.models.document.Chant">Chant</a></code></h4>
+<ul class="">
+<li><code><a title="monodikit.models.document.Chant.flat_neume_components" href="#monodikit.models.document.Chant.flat_neume_components">flat_neume_components</a></code></li>
+<li><code><a title="monodikit.models.document.Chant.flat_neume_components_by_division" href="#monodikit.models.document.Chant.flat_neume_components_by_division">flat_neume_components_by_division</a></code></li>
+<li><code><a title="monodikit.models.document.Chant.flat_neumes" href="#monodikit.models.document.Chant.flat_neumes">flat_neumes</a></code></li>
+<li><code><a title="monodikit.models.document.Chant.flat_syllables" href="#monodikit.models.document.Chant.flat_syllables">flat_syllables</a></code></li>
+<li><code><a title="monodikit.models.document.Chant.get_data" href="#monodikit.models.document.Chant.get_data">get_data</a></code></li>
+<li><code><a title="monodikit.models.document.Chant.get_meta" href="#monodikit.models.document.Chant.get_meta">get_meta</a></code></li>
+<li><code><a title="monodikit.models.document.Chant.json" href="#monodikit.models.document.Chant.json">json</a></code></li>
+<li><code><a title="monodikit.models.document.Chant.mei" href="#monodikit.models.document.Chant.mei">mei</a></code></li>
+<li><code><a title="monodikit.models.document.Chant.pitches" href="#monodikit.models.document.Chant.pitches">pitches</a></code></li>
+<li><code><a title="monodikit.models.document.Chant.type" href="#monodikit.models.document.Chant.type">type</a></code></li>
+<li><code><a title="monodikit.models.document.Chant.volpiano" href="#monodikit.models.document.Chant.volpiano">volpiano</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="monodikit.models.document.Data" href="#monodikit.models.document.Data">Data</a></code></h4>
+<ul class="two-column">
+<li><code><a title="monodikit.models.document.Data.children" href="#monodikit.models.document.Data.children">children</a></code></li>
+<li><code><a title="monodikit.models.document.Data.comments" href="#monodikit.models.document.Data.comments">comments</a></code></li>
+<li><code><a title="monodikit.models.document.Data.documentType" href="#monodikit.models.document.Data.documentType">documentType</a></code></li>
+<li><code><a title="monodikit.models.document.Data.elements" href="#monodikit.models.document.Data.elements">elements</a></code></li>
+<li><code><a title="monodikit.models.document.Data.json" href="#monodikit.models.document.Data.json">json</a></code></li>
+<li><code><a title="monodikit.models.document.Data.kind" href="#monodikit.models.document.Data.kind">kind</a></code></li>
+<li><code><a title="monodikit.models.document.Data.mei" href="#monodikit.models.document.Data.mei">mei</a></code></li>
+<li><code><a title="monodikit.models.document.Data.signatures" href="#monodikit.models.document.Data.signatures">signatures</a></code></li>
+<li><code><a title="monodikit.models.document.Data.uuid" href="#monodikit.models.document.Data.uuid">uuid</a></code></li>
+<li><code><a title="monodikit.models.document.Data.version" href="#monodikit.models.document.Data.version">version</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="monodikit.models.document.Division" href="#monodikit.models.document.Division">Division</a></code></h4>
+<ul class="">
+<li><code><a title="monodikit.models.document.Division.children" href="#monodikit.models.document.Division.children">children</a></code></li>
+<li><code><a title="monodikit.models.document.Division.data" href="#monodikit.models.document.Division.data">data</a></code></li>
+<li><code><a title="monodikit.models.document.Division.filter_paratexts" href="#monodikit.models.document.Division.filter_paratexts">filter_paratexts</a></code></li>
+<li><code><a title="monodikit.models.document.Division.flat_neume_components" href="#monodikit.models.document.Division.flat_neume_components">flat_neume_components</a></code></li>
+<li><code><a title="monodikit.models.document.Division.flat_neumes" href="#monodikit.models.document.Division.flat_neumes">flat_neumes</a></code></li>
+<li><code><a title="monodikit.models.document.Division.flat_syllables" href="#monodikit.models.document.Division.flat_syllables">flat_syllables</a></code></li>
+<li><code><a title="monodikit.models.document.Division.get_editorial_lines" href="#monodikit.models.document.Division.get_editorial_lines">get_editorial_lines</a></code></li>
+<li><code><a title="monodikit.models.document.Division.get_flat_editorial_lines" href="#monodikit.models.document.Division.get_flat_editorial_lines">get_flat_editorial_lines</a></code></li>
+<li><code><a title="monodikit.models.document.Division.get_signature" href="#monodikit.models.document.Division.get_signature">get_signature</a></code></li>
+<li><code><a title="monodikit.models.document.Division.get_status" href="#monodikit.models.document.Division.get_status">get_status</a></code></li>
+<li><code><a title="monodikit.models.document.Division.index" href="#monodikit.models.document.Division.index">index</a></code></li>
+<li><code><a title="monodikit.models.document.Division.json" href="#monodikit.models.document.Division.json">json</a></code></li>
+<li><code><a title="monodikit.models.document.Division.mei" href="#monodikit.models.document.Division.mei">mei</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="monodikit.models.document.EditorialLine" href="#monodikit.models.document.EditorialLine">EditorialLine</a></code></h4>
+<ul class="">
+<li><code><a title="monodikit.models.document.EditorialLine.children" href="#monodikit.models.document.EditorialLine.children">children</a></code></li>
+<li><code><a title="monodikit.models.document.EditorialLine.get_syllables" href="#monodikit.models.document.EditorialLine.get_syllables">get_syllables</a></code></li>
+<li><code><a title="monodikit.models.document.EditorialLine.index" href="#monodikit.models.document.EditorialLine.index">index</a></code></li>
+<li><code><a title="monodikit.models.document.EditorialLine.kind" href="#monodikit.models.document.EditorialLine.kind">kind</a></code></li>
+<li><code><a title="monodikit.models.document.EditorialLine.uuid" href="#monodikit.models.document.EditorialLine.uuid">uuid</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="monodikit.models.document.EmptyNeumeComponent" href="#monodikit.models.document.EmptyNeumeComponent">EmptyNeumeComponent</a></code></h4>
+<ul class="">
+<li><code><a title="monodikit.models.document.EmptyNeumeComponent.mei" href="#monodikit.models.document.EmptyNeumeComponent.mei">mei</a></code></li>
+<li><code><a title="monodikit.models.document.EmptyNeumeComponent.pitch" href="#monodikit.models.document.EmptyNeumeComponent.pitch">pitch</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="monodikit.models.document.Meta" href="#monodikit.models.document.Meta">Meta</a></code></h4>
+<ul class="">
+<li><code><a title="monodikit.models.document.Meta.as_record" href="#monodikit.models.document.Meta.as_record">as_record</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="monodikit.models.document.Neume" href="#monodikit.models.document.Neume">Neume</a></code></h4>
+<ul class="">
+<li><code><a title="monodikit.models.document.Neume.get_neume_content" href="#monodikit.models.document.Neume.get_neume_content">get_neume_content</a></code></li>
+<li><code><a title="monodikit.models.document.Neume.json" href="#monodikit.models.document.Neume.json">json</a></code></li>
+<li><code><a title="monodikit.models.document.Neume.mei" href="#monodikit.models.document.Neume.mei">mei</a></code></li>
+<li><code><a title="monodikit.models.document.Neume.neume_content" href="#monodikit.models.document.Neume.neume_content">neume_content</a></code></li>
+<li><code><a title="monodikit.models.document.Neume.parse_neume_content" href="#monodikit.models.document.Neume.parse_neume_content">parse_neume_content</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="monodikit.models.document.NeumeComponent" href="#monodikit.models.document.NeumeComponent">NeumeComponent</a></code></h4>
+<ul class="two-column">
+<li><code><a title="monodikit.models.document.NeumeComponent.base" href="#monodikit.models.document.NeumeComponent.base">base</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.calculate_number" href="#monodikit.models.document.NeumeComponent.calculate_number">calculate_number</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.focus" href="#monodikit.models.document.NeumeComponent.focus">focus</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.index" href="#monodikit.models.document.NeumeComponent.index">index</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.json" href="#monodikit.models.document.NeumeComponent.json">json</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.liquescent" href="#monodikit.models.document.NeumeComponent.liquescent">liquescent</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.mei" href="#monodikit.models.document.NeumeComponent.mei">mei</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.noteType" href="#monodikit.models.document.NeumeComponent.noteType">noteType</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.note_to_num" href="#monodikit.models.document.NeumeComponent.note_to_num">note_to_num</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.octave" href="#monodikit.models.document.NeumeComponent.octave">octave</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.pitch" href="#monodikit.models.document.NeumeComponent.pitch">pitch</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.uuid" href="#monodikit.models.document.NeumeComponent.uuid">uuid</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.volpiano" href="#monodikit.models.document.NeumeComponent.volpiano">volpiano</a></code></li>
+<li><code><a title="monodikit.models.document.NeumeComponent.volpiano_matching" href="#monodikit.models.document.NeumeComponent.volpiano_matching">volpiano_matching</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="monodikit.models.document.Syllable" href="#monodikit.models.document.Syllable">Syllable</a></code></h4>
+<ul class="two-column">
+<li><code><a title="monodikit.models.document.Syllable.endsWord" href="#monodikit.models.document.Syllable.endsWord">endsWord</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.focus" href="#monodikit.models.document.Syllable.focus">focus</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.get_neumes" href="#monodikit.models.document.Syllable.get_neumes">get_neumes</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.hasNotes" href="#monodikit.models.document.Syllable.hasNotes">hasNotes</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.index" href="#monodikit.models.document.Syllable.index">index</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.json" href="#monodikit.models.document.Syllable.json">json</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.kind" href="#monodikit.models.document.Syllable.kind">kind</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.mei" href="#monodikit.models.document.Syllable.mei">mei</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.neumes" href="#monodikit.models.document.Syllable.neumes">neumes</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.notes" href="#monodikit.models.document.Syllable.notes">notes</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.syllableType" href="#monodikit.models.document.Syllable.syllableType">syllableType</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.text" href="#monodikit.models.document.Syllable.text">text</a></code></li>
+<li><code><a title="monodikit.models.document.Syllable.uuid" href="#monodikit.models.document.Syllable.uuid">uuid</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

@@ -108,7 +108,7 @@ class NeumeComponent:
         return {"type": "note", "pitch": f"{self.base}{self.octave}"}
 
     @property
-    def pitch():
+    def pitch(self):
         return f"{self.base}{self.octave}"
 
     def __str__(self):
@@ -132,6 +132,7 @@ class EmptyNeumeComponent(NeumeComponent):
 class Neume:
     """
     A class representing a neume loosely following the MEI specification.
+
     """
 
     def __init__(self, spaced_element, index):  #: Takes a dictionary representing the spaced element of the neume.
@@ -140,6 +141,7 @@ class Neume:
         self.neume_components = [element for element in self.neume_content if type(element) == NeumeComponent]
         self.accidentals = [element for element in self.neume_content if type(element) == Accidental]
 
+    """Parses NeumeComponents and Accidentals within a Neume object."""
     def parse_neume_content(self, element, index):
         try:
             if element["noteType"] == "Normal":
@@ -158,6 +160,7 @@ class Neume:
         except AttributeError:
             return None
 
+    """Wraps whole content up into a list"""
     def get_neume_content(self, spaced_element):
         return [neume for neume in [self.parse_neume_content(connected_neume_component, (index1 + index2))
                                     for index2, neume_component in enumerate(spaced_element["nonSpaced"])
@@ -213,8 +216,12 @@ class Syllable:
         return {"type": "syllable", "lyric": self.text, "elements": [neume.json for neume in self.neumes]}
 
 
+
 @dataclass
 class EditorialLine:
+    """
+    A class representing a Editorial Line associated with the textual phrases.
+    """
     uuid: str
     kind: str
     children: list
@@ -296,12 +303,14 @@ class Division:
 
     @property
     def flat_syllables(self):
+        """ Get a list of syllables within a division. """
         return [syllable
                 for editorial_line in self.editorial_lines
                 for syllable in editorial_line.syllables]
 
     @property
     def flat_neumes(self):
+        """ Get a list of neumes within a division. """
         return [neume
                 for editorial_line in self.editorial_lines
                 for syllable in editorial_line.syllables
@@ -309,6 +318,7 @@ class Division:
 
     @property
     def flat_neume_components(self):
+        """ Get a list of neume components within a division. """
         return [note_component
                 for editorial_line in self.editorial_lines
                 for syllable in editorial_line.syllables

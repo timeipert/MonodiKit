@@ -3,12 +3,8 @@ import random
 import os
 
 from .document import Chant
-<<<<<<< HEAD
-from .source import create_source, Source
-=======
 from .source import create_source
 import pickle
->>>>>>> fuzzy-search
 
 
 class Corpus:
@@ -47,7 +43,6 @@ class Corpus:
     ```
     """
 
-<<<<<<< HEAD
     def __init__(self, directory, sample=0, filters=None):
         if filters is None:
             filters = {}
@@ -60,7 +55,7 @@ class Corpus:
         self.load_corpus(sample)
 
     # TODO: One should create subcorpora without the need to reload the whole corpus
-=======
+
     def __init__(self, directory=None, sample=0, filters=None, use_pkl=None):
         if use_pkl and os.path.exists(use_pkl):
             print("pkl exists, use pkl..")
@@ -89,7 +84,6 @@ class Corpus:
         print("end __init__")
             # TODO: One should create subcorpora without the need to reload the whole corpus
 
->>>>>>> fuzzy-search
     def load_corpus(self, sample):
         if not sample:
             self.sample = False
@@ -134,22 +128,21 @@ class Corpus:
     def source_metadata(self):
         return [source.meta.as_record for source in self.sources]
 
-<<<<<<< HEAD
-from .genre_specific import ProperTropeComplex
-
-def create_document(entry, filters, sources = None):
-=======
 
 from .genre_specific import ProperTropeComplex
 
 
 def create_document(entry, filters = None, sources=None):
->>>>>>> fuzzy-search
+
     """
     Creates a new instance of a document.
     At first checks for a specific type and assigns a genre-specific subclass
     (for example TropeComplex()).
      If no suitable subclass is found, it returns a generic Document() instance.
+     Example:
+         ```
+         document = create_document("./data/manuscriptid/documentid")
+         ```
     """
     document_meta = Chant.get_meta(entry)
     if sources:

@@ -1,4 +1,7 @@
-
+"""
+.. include:: ../Readme.md
+.. include:: ../Examples.md
+"""
 from .models.document import (
     Chant,
     Division,
