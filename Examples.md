@@ -44,7 +44,7 @@ HTML(monodikit.Search.visualize_html(results))
 ```
 
 ## Multiple Sequence Alignment with MAFFT
-You can also align the found chants (you have to install [MAFFT](https://mafft.cbrc.jp/alignment/software/] locally))
+You can also align the found chants (you have to install [MAFFT](https://mafft.cbrc.jp/alignment/software/) locally)
 
 ```python
 mafft_input = monodikit.Search.to_mafft_input(results[0:10], context=2) # Align the first 10 search results
