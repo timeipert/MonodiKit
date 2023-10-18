@@ -28,12 +28,14 @@
 </summary>
 <pre><code class="python">from .utility import Utility
 class Segment:
+    &#34;&#34;&#34;  Represents a segment found in a Search.  &#34;&#34;&#34;
     def __init__(self, indices, window, window_offset):
         self.indices = indices
         self.window = window
         self.window_offset = window_offset
 
 class SearchResult:
+    &#34;&#34;&#34; Represents a search result with information of chant and one or multiple found segments. &#34;&#34;&#34;
     def __init__(self, chant, segments):
         self.chant = chant
         self.segments = segments
@@ -635,12 +637,13 @@ def visualize_html(results):
 <span>(</span><span>chant, segments)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Represents a search result with information of chant and one or multiple found segments.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class SearchResult:
+    &#34;&#34;&#34; Represents a search result with information of chant and one or multiple found segments. &#34;&#34;&#34;
     def __init__(self, chant, segments):
         self.chant = chant
         self.segments = segments</code></pre>
@@ -651,12 +654,13 @@ def visualize_html(results):
 <span>(</span><span>indices, window, window_offset)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Represents a segment found in a Search.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Segment:
+    &#34;&#34;&#34;  Represents a segment found in a Search.  &#34;&#34;&#34;
     def __init__(self, indices, window, window_offset):
         self.indices = indices
         self.window = window

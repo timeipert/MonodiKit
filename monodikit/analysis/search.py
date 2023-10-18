@@ -1,11 +1,13 @@
 from .utility import Utility
 class Segment:
+    """  Represents a segment found in a Search.  """
     def __init__(self, indices, window, window_offset):
         self.indices = indices
         self.window = window
         self.window_offset = window_offset
 
 class SearchResult:
+    """ Represents a search result with information of chant and one or multiple found segments. """
     def __init__(self, chant, segments):
         self.chant = chant
         self.segments = segments

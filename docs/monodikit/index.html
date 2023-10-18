@@ -76,6 +76,29 @@ print(document_meta.loc[document_meta[&quot;genre&quot;] == &quot;Tropus&quot;])
 # Show IDs of all liturgical plays (for example to build a sub corpora out of one or all of them)
 print(document_meta.loc[document_meta[&quot;liturgical_play_id&quot;] != None].value_counts())
 </code></pre>
+<h2 id="search-in-corpus">Search in Corpus</h2>
+<p>With search_in_window you can search for a sequence of pitches or intervals within a certain window size.
+If len(sequence) == window size, it is just a complete match. The following code will give you every segment
+of three pitches that include a E4 and F4 in this order.</p>
+<pre><code class="language-python">results = monodikit.Search.search_in_window(corpus, [&quot;E4&quot;, &quot;F4&quot;], 3)
+</code></pre>
+<p>You can do the same with intervals, just provide the information in the "preprocess" argument.</p>
+<pre><code class="language-python">results = monodikit.Search.search_in_window(corpus, [1,1,-1,-1,0,0], 6,  preprocess=&quot;intervals&quot;)
+</code></pre>
+<p>You can now create a html file with the results:</p>
+<pre><code class="language-python">with open(&quot;result.html&quot;, &quot;w&quot;) as f:
+    f.write(monodikit.Search.visualize_html(results))
+</code></pre>
+<p>or view it directly in a jupyter notebook with:</p>
+<pre><code class="language-python">from IPython.display import HTML
+HTML(monodikit.Search.visualize_html(results))
+</code></pre>
+<h2 id="multiple-sequence-alignment-with-mafft">Multiple Sequence Alignment with MAFFT</h2>
+<p>You can also align the found chants (you have to install <a href="https://mafft.cbrc.jp/alignment/software/] locally">MAFFT</a>)</p>
+<pre><code class="language-python">mafft_input = monodikit.Search.to_mafft_input(results[0:10], context=2) # Align the first 10 search results
+align = monodikit.Synopsis.run_mafft(mafft_input)
+html = monodikit.Synopsis.visualize_alignments(align, highlight=[segment[&quot;ids&quot;] for result in results for segment in result[&quot;segments&quot;]], offset=2) # visualize and highligh notes that were in the search result window.
+</code></pre>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -145,6 +168,8 @@ from .analysis.synopsis import (
 </li>
 <li><a href="#faf-frequently-asked-functions">FAF (Frequently Asked Functions)</a><ul>
 <li><a href="#get-overview-over-corpus">Get Overview over Corpus</a></li>
+<li><a href="#search-in-corpus">Search in Corpus</a></li>
+<li><a href="#multiple-sequence-alignment-with-mafft">Multiple Sequence Alignment with MAFFT</a></li>
 </ul>
 </li>
 </ul>
