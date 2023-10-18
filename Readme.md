@@ -10,6 +10,9 @@ exploring their hierarchical structure,
 managing metadata, generating musical notation, 
 and extracting relevant information.
 
+See [Documentation](https://timeipert.github.io/MonodiKit/)
+
+
 ## Key Features
 * Parsing and processing of medieval chant documents.
 * Access to the hierarchical structure of chant documents.
