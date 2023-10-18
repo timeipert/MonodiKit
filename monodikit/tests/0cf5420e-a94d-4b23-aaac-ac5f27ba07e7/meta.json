@@ -1,0 +1,30 @@
+{
+  "id" : "0cf5420e-a94d-4b23-aaac-ac5f27ba07e7",
+  "quelle_id" : "Aa 13",
+  "dokumenten_id" : "Aa 13-118v-11",
+  "gattung1" : "Sanctus",
+  "gattung2" : "tropiert",
+  "festtag" : "",
+  "feier" : "Messe",
+  "textinitium" : "Trinitas unitas",
+  "bibliographischerverweis" : "CT VII, 161: 1a 1b 2a 2b 3a 3b 4a 4b 5a 5b",
+  "druckausgabe" : "",
+  "zeilenstart" : "11",
+  "foliostart" : "118v",
+  "kommentar" : "",
+  "editionsstatus" : "ediert",
+  "additionalData" : {
+    "Melodiennummer_Katalog" : "Thannabaur 184",
+    "Editor" : "andreas.pfisterer@uni-wuerzburg.de",
+    "Bezugsgesang" : "",
+    "Melodie_Standard" : "",
+    "Endseite" : "119",
+    "Startposition" : "",
+    "Zusatz_zu_Textinitium" : "",
+    "Referenz_auf_Spiel" : "",
+    "Endzeile" : "7",
+    "Nachtragsschicht" : "",
+    "Überlieferungszustand" : "",
+    "Melodie_Quelle" : ""
+  }
+}
