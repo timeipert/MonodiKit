@@ -58,7 +58,7 @@ class Corpus:
 
     def __init__(self, directory=None, sample=0, filters=None, use_pkl=None):
         if use_pkl and os.path.exists(use_pkl):
-            print("pkl exists, use pkl..")
+            #print("pkl exists, use pkl..")
             with open(use_pkl, "rb") as f:
                 corpus_data = pickle.load(f)
                 self.directory = corpus_data.directory
@@ -68,7 +68,7 @@ class Corpus:
                 self.sources = corpus_data.sources
 
         elif directory:
-            print("pkl does not exist.")
+           # print("pkl does not exist.")
 
             self.directory = directory
             self.filters = filters
@@ -81,7 +81,7 @@ class Corpus:
                 print("save pkl.")
                 with open(use_pkl, "wb") as f:
                     pickle.dump(self, f, pickle.HIGHEST_PROTOCOL)
-        print("end __init__")
+        #print("end __init__")
             # TODO: One should create subcorpora without the need to reload the whole corpus
 
     def load_corpus(self, sample):
