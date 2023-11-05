@@ -235,6 +235,13 @@ class EditorialLine:
                 for index, div in enumerate(self.children)
                 ]
 
+    @property
+    def mei(self):
+        if len(self.syllables) == 0:
+            return ""
+        syllables = "".join([syllable.mei for syllable in self.syllables])
+        return f"<staff><layer>{syllables}</layer></staff>"
+
 
 @dataclass
 class Division:
@@ -329,14 +336,16 @@ class Division:
 
     @property
     def mei(self):
-        if len(self.syllables) == 0:
-            return ""
-        syllables = "".join([syllable.mei for syllable in self.syllables])
-        return f"<section><staff><layer>{syllables}</layer></staff></section>"
+        if len(self.elements) > 0:
+            division = "".join([division.mei for division in self.elements])
+            return f"<section>{division}</section>"
+        elif len(self.editorial_lines) > 0:
+            editorial_line = "".join([e_l.mei for e_l in self.editorial_lines])
+            return f"<section>{editorial_line}</section>"
 
     @property
     def json(self):
-        return {"type": "section", "elements": [syllable.json for syllable in self.syllables]}
+        return {"type": "section", "elements": [syllable.json for syllable in self.flat_syllables]}
 
     # def get_linechange(self):
     #     return [ Syllable(c) for child in self.children for d in child["children"] for c in d["children"] ]
@@ -539,9 +548,12 @@ class Data:
             return f'<music><body><mdiv><score><scoreDef />' \
                    f'{divisions}' \
                    f'</score></mdiv></body></music>'
-        except AttributeError:
+        except AttributeError as e:
+
             print(f"Warning: Document {self.uuid} has no attribute 'elements'. Len of children attribute: {len(self.elements)}")
-            print(self.elements)
+            print(f"Elements content is: ", self.elements)
+            print("Original error message: ", e)
+
             return ""
 
     @property

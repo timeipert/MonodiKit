@@ -10,7 +10,6 @@ from matplotlib.colors import LogNorm
 
 import monodikit
 
-
 class IntervalBigramHeatmap:
     def __init__(self):
         self.corpus_directory = "../../data/*"
