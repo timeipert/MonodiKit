@@ -14,9 +14,8 @@ class TestCorpus(unittest.TestCase):
         sources = {"source_id": "Test"}  # Mock sources
 
         # Mock Chant class
-        with patch('models.corpus.Chant', autospec=True) as mock_chant:
-            result = create_document(entry, filters, sources)
-            self.assertIsInstance(result, Chant)  # Check instance type
+        result = create_document(entry, filters, sources)
+        self.assertIsInstance(result, Chant)  # Check instance type
 
 
     # Add more test cases for the Corpus class functionality

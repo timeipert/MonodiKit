@@ -7255,3 +7255,55 @@ syllable_data = {
     "hasNotes": True,
     "neumes": []  # List of Neume instances
 }
+source_meta_mock = {
+  "id" : "Apt 17",
+  "quellensigle" : "Apt 17",
+  "herkunftsregion" : "Quellen aquitanischer Herkunft",
+  "herkunftsort" : "Apt",
+  "herkunftsinstitution" : "",
+  "ordenstradition" : "",
+  "quellentyp" : "Tropar, Prosar",
+  "bibliotheksort" : "Apt",
+  "bibliothek" : "Archive Basilique de Sainte Anne",
+  "bibliothekssignatur" : "Ms. 17",
+  "kommentar" : "",
+  "datierung" : "11. Jh Mitte",
+  "status" : "true",
+  "jahrhundert" : "11.",
+  "manifest" : "",
+  "foliooffset" : -1,
+  "publish": True,
+  "unknownvalue": "test"
+}
+
+doc_meta_mock = {
+  "id" : "0de145d0-1435-40d5-95d4-78ff9e8c1f1e",
+  "quelle_id" : "Apt 17",
+  "dokumenten_id" : "Apt 17-326-4",
+  "gattung1" : "Tropus",
+  "unknownvalue": "test",
+  "gattung2" : "Offertorium-Tropus",
+  "festtag" : "Omnes sancti",
+  "feier" : "Messe",
+  "textinitium" : "O quam mellifluum",
+  "bibliographischerverweis" : "O quam gloriosum off 1 A 2^CM B (CT X)",
+  "druckausgabe" : "II-3",
+  "zeilenstart" : "4",
+  "foliostart" : "326",
+  "kommentar" : "nicht d8a37389-3554-467e-ac5b-0e18485527ac",
+  "editionsstatus" : "ediert",
+  "additionalData" : {
+    "Melodiennummer_Katalog" : "",
+    "Editor" : "david.catalunya@uni-wuerzburg.de",
+    "Bezugsgesang" : "(O quam gloriosum)",
+    "Melodie_Standard" : "",
+    "Endseite" : "326",
+    "Startposition" : "",
+    "Zusatz_zu_Textinitium" : "",
+    "Referenz_auf_Spiel" : "",
+    "Endzeile" : "8",
+    "Nachtragsschicht" : "",
+    "Überlieferungszustand" : "",
+    "Melodie_Quelle" : ""
+  }
+}

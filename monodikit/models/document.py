@@ -162,10 +162,14 @@ class Neume:
 
     """Wraps whole content up into a list"""
     def get_neume_content(self, spaced_element):
-        return [neume for neume in [self.parse_neume_content(connected_neume_component, (index1 + index2))
-                                    for index2, neume_component in enumerate(spaced_element["nonSpaced"])
-                                    for index1, connected_neume_component in enumerate(neume_component["grouped"])] if
-                neume is not None]
+        try:
+            return [neume for neume in [self.parse_neume_content(connected_neume_component, (index1 + index2))
+                                       for index2, neume_component in enumerate(spaced_element["nonSpaced"])
+                                       for index1, connected_neume_component in enumerate(neume_component["grouped"])] if
+                    neume is not None]
+        except Exception as ex:
+            print("Error: Could not parse neume content: ", type(ex), ex.args, spaced_element)
+            return []
 
     @property
     def mei(self):
@@ -180,6 +184,9 @@ class Neume:
     def json(self):
         return {"type": "neume", "elements": [neume_components.json for neume_components in self.neume_content]}
 
+    @property
+    def volpiano(self):
+        return "".join([nc.volpiano for nc in self.neume_components])
 
 @dataclass
 class Syllable:
@@ -204,7 +211,11 @@ class Syllable:
     def get_neumes(self, notes):
         if "spaced" not in notes:
             return []
-        return [Neume(neume, self.index + (index,)) for index, neume in enumerate(notes["spaced"])]
+        try:
+            return [Neume(neume, self.index + (index,)) for index, neume in enumerate(notes["spaced"])]
+        except Exception as ex:
+            print("Error: Could not parse neumes: ", type(ex), ex.args, notes)
+            return []
 
     @property
     def mei(self):
@@ -215,7 +226,9 @@ class Syllable:
     def json(self):
         return {"type": "syllable", "lyric": self.text, "elements": [neume.json for neume in self.neumes]}
 
-
+    @property
+    def volpiano(self):
+        return "".join([f"{neume.volpiano}-" for neume in self.neumes])
 
 @dataclass
 class EditorialLine:
@@ -230,10 +243,18 @@ class EditorialLine:
     def __post_init__(self):
         self.syllables = self.get_syllables()
 
+    @staticmethod
+    def filter_clefs(children):
+        return [child for child in children if child["kind"] != "Clef"]
+
     def get_syllables(self):
-        return [Syllable(**div, index=self.index + (index,))
-                for index, div in enumerate(self.children)
-                ]
+        try:
+            return [Syllable(**div, index=self.index + (index,))
+                    for index, div in enumerate(EditorialLine.filter_clefs(self.children))
+                    ]
+        except Exception as ex:
+            print("Error: Could not parse syllables: ", type(ex), ex.args, self.children)
+            return []
 
     @property
     def mei(self):
@@ -242,6 +263,9 @@ class EditorialLine:
         syllables = "".join([syllable.mei for syllable in self.syllables])
         return f"<staff><layer>{syllables}</layer></staff>"
 
+    @property
+    def volpiano(self):
+        return "".join([f"{syllable.volpiano}-" for syllable in self.syllables])
 
 @dataclass
 class Division:
@@ -294,8 +318,8 @@ class Division:
         for index, child in enumerate(self.filter_paratexts(self.children)):
             try:
                 editorial_lines.append(EditorialLine(**child, index=self.index + (index,)))
-            except:
-                print("Warning: Expected editorial line but got: ", child)
+            except Exception as ex:
+                print("Error: Could not parse editorial line: ", type(ex), ex.args, child[0:20])
         return editorial_lines
 
     def get_flat_editorial_lines(self):
@@ -350,7 +374,9 @@ class Division:
     # def get_linechange(self):
     #     return [ Syllable(c) for child in self.children for d in child["children"] for c in d["children"] ]
 
-
+    @property
+    def volpiano(self):
+        return "".join([syllable.volpiano for syllable in self.editorial_lines])
 class Chant:
     """
     A class representing a document or unit of medieval chant.
@@ -408,17 +434,21 @@ class Chant:
                     for division in self.data.elements
                     for neume_component in division.flat_neume_components]
         except:
-            print("Warning for Chant property flat_neume_components: "
-                  "data.elements is None at: ", self.meta.dokumenten_id)
+            print('Warning for Chant property flat_neume_components: '
+                  'data.elements is None at: ', self.meta.dokumenten_id)
             return []
 
     @property
     def volpiano(self):
-        return [note_component.volpiano for note_component in self.flat_neume_components]
+        return "".join([f"{division.volpiano}\n" for division in self.data.elements])
 
     @property
     def pitches(self):
         return [note_component.pitch for note_component in self.flat_neume_components]
+
+    @property
+    def syllable_text(self):
+        return [syllable.text for syllable in self.flat_syllables]
 
     @property
     def flat_neume_components_by_division(self):
@@ -445,6 +475,8 @@ class Chant:
     @property
     def json(self):
         return self.data.json
+
+
 
 
 class Meta:
@@ -561,3 +593,5 @@ class Data:
     @property
     def json(self):
         return {"type": "chant", "elements": [division.json for division in self.elements]}
+
+
