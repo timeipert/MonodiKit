@@ -20,6 +20,12 @@ print(document_meta.loc[document_meta["genre"] == "Tropus"])
 # Show IDs of all liturgical plays (for example to build a sub corpora out of one or all of them)
 print(document_meta.loc[document_meta["liturgical_play_id"] != None].value_counts())
 ```
+## Export first document in different formats
+```python
+corpus = monodikit.Corpus(dir)
+example1 = corpus.documents[0].mei
+example2 = corpus.documents[0].volpiano
+```
 
 ## Search in Corpus
 With search_in_window you can search for a sequence of pitches or intervals within a certain window size. 

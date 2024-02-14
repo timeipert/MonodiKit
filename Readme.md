@@ -36,6 +36,7 @@ import monodikit
 
 If you want to use the data published by Corpus monodicum, you have to download it from [OSF](https://doi.org/10.17605/OSF.IO/MFPKD).
 Now you can load the data into monodikit with:
+
 ```python
 corpus = monodikit.Corpus("./data/*")
 print(len(corpus.documents))
