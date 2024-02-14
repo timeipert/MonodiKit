@@ -44,3 +44,11 @@ print(len(corpus.documents))
 
 ## Examples
 Check out [Examples.md](https://github.com/timeipert/MonodiKit/blob/main/Examples.md) for more examples.
+
+## Version History
+* 0.0.1
+    * Initial Release
+* 0.0.2
+  * Updated Data Structure and Exception Handling
+* 0.0.3
+  * Better Volpiano Support
