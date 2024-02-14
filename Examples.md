@@ -23,8 +23,9 @@ print(document_meta.loc[document_meta["liturgical_play_id"] != None].value_count
 ## Export first document in different formats
 ```python
 corpus = monodikit.Corpus(dir)
-example1 = corpus.documents[0].mei
-example2 = corpus.documents[0].volpiano
+mei = corpus.documents[0].mei
+volpiano = corpus.documents[0].volpiano
+text_syllables = corpus.documents[0].syllable_text
 ```
 
 ## Search in Corpus

@@ -17,7 +17,7 @@ See [Documentation](https://timeipert.github.io/MonodiKit/)
 * Parsing and processing of medieval chant documents.
 * Access to the hierarchical structure of chant documents.
 * Management of metadata associated with chant documents.
-* Export to MEI
+* Export to MEI, Volpiano and JSON.
 * Extraction of relevant information.
 
 ## Usage
