@@ -451,7 +451,7 @@ class Meta:
 
     def __init__(self, id, quelle_id, dokumenten_id, gattung1, gattung2, festtag, feier, textinitium,
                  bibliographischerverweis, druckausgabe, zeilenstart, foliostart, kommentar, editionsstatus,
-                 additionalData):
+                 additionalData, **kw):
         self.uuid = id,
         self.source_id = quelle_id
         self.document_id = dokumenten_id
@@ -480,6 +480,8 @@ class Meta:
         self.layer_of_addendum = additionalData.get("Nachtragsschicht", "")
         self.condition_of_transmission = additionalData.get("\u00dcberlieferungszustand", "")
         self.iiif_urls = additionalData.get("iiifs", "")
+
+        self.unknown = kw
 
     @property
     def as_record(self):
