@@ -1,7 +1,7 @@
 import subprocess
 class Synopsis:
     @staticmethod
-    def run_mafft(input_data):
+    def run_mafft(input_data, textmatrix_file = None):
         """
         Runs the MAFFT multiple sequence alignment tool on the given input data.
 
@@ -14,7 +14,12 @@ class Synopsis:
         input_content = Synopsis.parse_mafft_input(input_data)
         with open("temp.fasta", "w") as f:
             f.write(input_content)
-        command = f"mafft --auto --anysymbol temp.fasta"
+        if textmatrix_file:
+            tmf = f"--textmatrix {textmatrix_file}"
+        else:
+            tmf = ""
+
+        command = f"mafft --auto --text {tmf} temp.fasta"
         out = subprocess.run(command, shell=True, capture_output=True)
 
         return Synopsis.parse_mafft_output(str(out.stdout))
