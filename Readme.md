@@ -52,3 +52,6 @@ Check out [Examples.md](https://github.com/timeipert/MonodiKit/blob/main/Example
   * Updated Data Structure and Exception Handling
 * 0.0.3
   * Better Volpiano Support
+* 0.0.4
+  * Changed MAFFT configuration
+  * Supports matrixfile in MAFFT
