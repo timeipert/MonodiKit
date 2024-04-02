@@ -55,3 +55,5 @@ Check out [Examples.md](https://github.com/timeipert/MonodiKit/blob/main/Example
 * 0.0.4
   * Changed MAFFT configuration
   * Supports matrixfile in MAFFT
+* 0.0.5
+  * Minor Bugfix: Error Handling of Volpiano Parsing 
