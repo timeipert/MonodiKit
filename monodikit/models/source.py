@@ -18,11 +18,12 @@ class Source:
     century: str
     iiif_manifest_url: str
     iiif_foliooffset: str
+    publish: str
 
     def __init__(self, id, quellensigle, herkunftsregion, herkunftsort, herkunftsinstitution, ordenstradition,
                  quellentyp,
                  bibliotheksort, bibliothek, bibliothekssignatur, kommentar, datierung, status, jahrhundert, manifest,
-                 foliooffset, publish, **kw
+                 foliooffset, publish = False, **kw
                  ):
         self.id = id
         self.sigle = quellensigle

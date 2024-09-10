@@ -62,6 +62,11 @@ class NeumeComponent:
     volpiano_matching = {"F3": "8", "G3": "9", "A3": "a", "B3": "b", "C4": "c", "D4": "d", "E4": "e", "F4": "f",
                          "G4": "g", "A4": "h", "B4": "j", "C5": "k", "D5": "l", "E5": "m", "F5": "n", "G5": "o",
                          "A5": "p", "B5": "q", "C6": "r", "D6": "s", "E6": "t"}
+    chantdigger_matching = {
+        "F3": "F", "G3": "G", "A3": "A", "B3": "H", "C4": "c", "D4": "d", "E4": "e", "F4": "f",
+        "G4": "g", "A4": "a", "B4": "h", "C5": "c'", "D5": "d'", "E5": "e'", "F5": "f'", "G5": "g'",
+        "A5": "a'", "B5": "h'", "C6": "c''", "D6": "d''", "E6": "e''"
+    }
 
     def calculate_number(self):
         return (self.octave * 7) + (self.note_to_num[self.base])
@@ -91,6 +96,14 @@ class NeumeComponent:
             return self.volpiano_matching[self.pitch]
         except KeyError:
             print (f"Volpiano not found for pitch {self.pitch}. Returning '?' instead.")
+            return "?"
+
+    @property
+    def chantdigger(self):
+        try:
+            return self.chantdigger_matching[self.pitch]
+        except KeyError:
+            print (f"ChantDigger not found for pitch {self.pitch}. Returning '?' instead.")
             return "?"
 
     @property
@@ -192,6 +205,9 @@ class Neume:
     def volpiano(self):
         return "".join([nc.volpiano for nc in self.neume_components])
 
+    def chantdigger(self):
+        return " ".join([nc.chantdigger for nc in self.neume_components])
+
 @dataclass
 class Syllable:
     uuid: str
@@ -234,6 +250,10 @@ class Syllable:
     def volpiano(self):
         return "".join([f"{neume.volpiano}-" for neume in self.neumes])
 
+    def chantdigger(self):
+        syllable_melody = "".join([neume.chantdigger() for neume in self.neumes])
+        return f"[{self.text}] {syllable_melody}"
+
 @dataclass
 class EditorialLine:
     """
@@ -270,6 +290,10 @@ class EditorialLine:
     @property
     def volpiano(self):
         return "".join([f"{syllable.volpiano}-" for syllable in self.syllables])
+
+    @property
+    def chantdigger(self):
+        return " ".join([syllable.chantdigger() for syllable in self.syllables])
 
 @dataclass
 class Division:
@@ -323,7 +347,7 @@ class Division:
             try:
                 editorial_lines.append(EditorialLine(**child, index=self.index + (index,)))
             except Exception as ex:
-                print("Error: Could not parse editorial line: ", type(ex), ex.args, child[0:20])
+                print("Error: Could not parse editorial line: ", type(ex), ex.args)
         return editorial_lines
 
     def get_flat_editorial_lines(self):
@@ -381,6 +405,11 @@ class Division:
     @property
     def volpiano(self):
         return "".join([syllable.volpiano for syllable in self.editorial_lines])
+
+    @property
+    def chantdigger(self):
+        return "".join([syllable.chantdigger for syllable in self.editorial_lines])
+
 class Chant:
     """
     A class representing a document or unit of medieval chant.
@@ -426,6 +455,10 @@ class Chant:
                 for syllable in el.syllables]
 
     @property
+    def flat_text(self):
+        return " ".join([syllable.text for syllable in self.flat_syllables])
+
+    @property
     def flat_neumes(self):
         return [neume
                 for division in self.data.elements
@@ -445,6 +478,16 @@ class Chant:
     @property
     def volpiano(self):
         return "".join([f"{division.volpiano}\n" for division in self.data.elements])
+
+    @property
+    def chantdigger(self):
+        melody = "".join([f"{division.chantdigger}" for division in self.data.elements])
+        return (
+                f"{self.meta.initial_text}\n"
+                f"{self.meta.genre}\n"
+                f"{self.meta.bibliographical_reference}\n"
+                f"{melody}\n"
+                f"{self.flat_text}\n")
 
     @property
     def pitches(self):
