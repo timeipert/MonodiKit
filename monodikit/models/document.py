@@ -95,7 +95,7 @@ class NeumeComponent:
         try:
             return self.volpiano_matching[self.pitch]
         except KeyError:
-            print (f"Volpiano not found for pitch {self.pitch}. Returning '?' instead.")
+            print(f"Volpiano not found for pitch {self.pitch}. Returning '?' instead.")
             return "?"
 
     @property
@@ -103,7 +103,7 @@ class NeumeComponent:
         try:
             return self.chantdigger_matching[self.pitch]
         except KeyError:
-            print (f"ChantDigger not found for pitch {self.pitch}. Returning '?' instead.")
+            print(f"ChantDigger not found for pitch {self.pitch}. Returning '?' instead.")
             return "?"
 
     @property
@@ -159,6 +159,7 @@ class Neume:
         self.accidentals = [element for element in self.neume_content if type(element) == Accidental]
 
     """Parses NeumeComponents and Accidentals within a Neume object."""
+
     def parse_neume_content(self, element, index):
         try:
             if element["noteType"] == "Normal":
@@ -178,11 +179,13 @@ class Neume:
             return None
 
     """Wraps whole content up into a list"""
+
     def get_neume_content(self, spaced_element):
         try:
             return [neume for neume in [self.parse_neume_content(connected_neume_component, (index1 + index2))
-                                       for index2, neume_component in enumerate(spaced_element["nonSpaced"])
-                                       for index1, connected_neume_component in enumerate(neume_component["grouped"])] if
+                                        for index2, neume_component in enumerate(spaced_element["nonSpaced"])
+                                        for index1, connected_neume_component in enumerate(neume_component["grouped"])]
+                    if
                     neume is not None]
         except Exception as ex:
             print("Error: Could not parse neume content: ", type(ex), ex.args, spaced_element)
@@ -207,6 +210,7 @@ class Neume:
 
     def chantdigger(self):
         return " ".join([nc.chantdigger for nc in self.neume_components])
+
 
 @dataclass
 class Syllable:
@@ -254,6 +258,7 @@ class Syllable:
         syllable_melody = "".join([neume.chantdigger() for neume in self.neumes])
         return f"[{self.text}] {syllable_melody}"
 
+
 @dataclass
 class EditorialLine:
     """
@@ -294,6 +299,7 @@ class EditorialLine:
     @property
     def chantdigger(self):
         return " ".join([syllable.chantdigger() for syllable in self.syllables])
+
 
 @dataclass
 class Division:
@@ -385,7 +391,6 @@ class Division:
                 for note_component in neume.neume_content]
         # if c["kind"] == "Syllable"
 
-
     @property
     def mei(self):
         if len(self.elements) > 0:
@@ -410,6 +415,7 @@ class Division:
     def chantdigger(self):
         return "".join([syllable.chantdigger for syllable in self.editorial_lines])
 
+
 class Chant:
     """
     A class representing a document or unit of medieval chant.
@@ -432,8 +438,14 @@ class Chant:
     def get_meta(entry_path):
         if glob.glob(entry_path + "/meta.json"):
             with open(entry_path + "/meta.json") as f:
-                metadata = json.load(f)
-                meta = Meta(**metadata)
+                try:
+                    metadata = json.load(f)
+                    meta = Meta(**metadata)
+                except TypeError as missing_docs:
+                    print(
+                        f"Loading Metadata was not successfull, there is a TypeError. \n"
+                        f"Loaded metadata: {metadata} \nError: {missing_docs}")
+                    exit()
             return meta
         else:
             return
@@ -483,11 +495,11 @@ class Chant:
     def chantdigger(self):
         melody = "".join([f"{division.chantdigger}" for division in self.data.elements])
         return (
-                f"{self.meta.initial_text}\n"
-                f"{self.meta.genre}\n"
-                f"{self.meta.bibliographical_reference}\n"
-                f"{melody}\n"
-                f"{self.flat_text}\n")
+            f"{self.meta.initial_text}\n"
+            f"{self.meta.genre}\n"
+            f"{self.meta.bibliographical_reference}\n"
+            f"{melody}\n"
+            f"{self.flat_text}\n")
 
     @property
     def pitches(self):
@@ -522,8 +534,6 @@ class Chant:
     @property
     def json(self):
         return self.data.json
-
-
 
 
 class Meta:
@@ -631,7 +641,8 @@ class Data:
                    f'</score></mdiv></body></music>'
         except AttributeError as e:
 
-            print(f"Warning: Document {self.uuid} has no attribute 'elements'. Len of children attribute: {len(self.elements)}")
+            print(
+                f"Warning: Document {self.uuid} has no attribute 'elements'. Len of children attribute: {len(self.elements)}")
             print(f"Elements content is: ", self.elements)
             print("Original error message: ", e)
 
@@ -640,5 +651,3 @@ class Data:
     @property
     def json(self):
         return {"type": "chant", "elements": [division.json for division in self.elements]}
-
-
