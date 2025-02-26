@@ -268,6 +268,7 @@ class EditorialLine:
     kind: str
     children: list
     index: tuple
+    text: str = ""
 
     def __post_init__(self):
         self.syllables = self.get_syllables()
@@ -317,8 +318,14 @@ class Division:
         if "data" in [keys for child in children_wo_paratext for keys in child.keys()]:
 
             self.interdivision = True
-            self.elements = [Division(div["data"], div["children"], self.index + (index,)) for index, div in
-                             enumerate(children_wo_paratext)]
+            self.elements = [
+                Division(
+                    div.get("data", []),
+                    div.get("children", []),
+                    self.index + (index,)
+                )
+                for index, div in enumerate(children_wo_paratext)
+            ]
             self.editorial_lines: list = self.get_flat_editorial_lines()
         else:
             self.interdivision = False
@@ -620,6 +627,7 @@ class Data:
     elements: List[Division] = field(init=[])  #: The Division elements that are contained by the Document
     signatures: list = field(init=[])  #: A list of signatures for the elements of the document
     version: str = ""  #: to catch 'version' attribute in *some* data files
+    globalComment: any = ""
 
     def __post_init__(self):
         # try:
