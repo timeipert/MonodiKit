@@ -23,7 +23,7 @@ class Source:
     def __init__(self, id, quellensigle, herkunftsregion, herkunftsort, herkunftsinstitution, ordenstradition,
                  quellentyp,
                  bibliotheksort, bibliothek, bibliothekssignatur, kommentar, datierung, status, jahrhundert, manifest,
-                 foliooffset, publish = False, **kw
+                 foliooffset, publish=False, **kw
                  ):
         self.id = id
         self.sigle = quellensigle
@@ -42,7 +42,7 @@ class Source:
         self.iiif_manifest_url = manifest
         self.iiif_foliooffset = foliooffset
         self.publish = publish
-        self.unknown=kw
+        self.unknown = kw
 
     def as_record(self):
         return {"id": self.id,

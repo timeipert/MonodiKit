@@ -7,7 +7,6 @@ from typing import Any, Callable, Dict, List, Optional
 
 from .document import Chant
 from .source import create_source
-from .genre_specific import ProperTropeComplex
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -200,6 +199,7 @@ def create_document(
     # Dispatch based on genre
     if document_meta.genre == "Tropus":
         try:
+            from .genre_specific import ProperTropeComplex
             return ProperTropeComplex(entry)
         except Exception as e:
             logger.warning(f"Failed to create ProperTropeComplex for '{entry}': {e}")
