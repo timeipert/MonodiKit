@@ -10,8 +10,10 @@ exploring their hierarchical structure,
 managing metadata, generating musical notation, 
 and extracting relevant information.
 
-See [Documentation](https://timeipert.github.io/MonodiKit/)
 
+For Documentation see:
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/timeipert/MonodiKit)
 
 ## Key Features
 * Parsing and processing of medieval chant documents.
